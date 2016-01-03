@@ -4,5 +4,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>com.moutain.microclimate.service.entities.User</class>
 		<class>com.moutain.microclimate.service.entities.Role</class>
+		<class>com.moutain.microclimate.service.entities.UserToRoleMapping</class>
+		<class>com.moutain.microclimate.service.entities.Statistic</class>
 	</persistence-unit>
 </persistence>
