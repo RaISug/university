@@ -9,6 +9,7 @@ import com.radoslav.microclimate.service.exceptions.MicroclimateExceptionMapper;
 import com.radoslav.microclimate.service.filters.EntityManagerFilter;
 import com.radoslav.microclimate.service.providers.EntityManagerContextProvider;
 import com.radoslav.microclimate.service.providers.GsonJsonProvider;
+import com.radoslav.microclimate.service.rest.CSRFTokenManagementAPI;
 import com.radoslav.microclimate.service.rest.UserManagementAPI;
 
 public class CXFResourceRegistry extends Application {
@@ -22,6 +23,7 @@ public class CXFResourceRegistry extends Application {
 
     classes.add(UserManagementAPI.class);
     classes.add(EntityManagerFilter.class);
+    classes.add(CSRFTokenManagementAPI.class);
     classes.add(EntityManagerContextProvider.class);
   }
   
