@@ -6,7 +6,7 @@ import javax.ws.rs.ext.Provider;
 import org.apache.cxf.jaxrs.ext.ContextProvider;
 import org.apache.cxf.message.Message;
 
-import com.radoslav.microclimate.service.pojos.EntityManagerContext;
+import com.radoslav.microclimate.service.beans.EntityManagerContext;
 
 @Provider
 public class EntityManagerContextProvider implements ContextProvider<EntityManager> {

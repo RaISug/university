@@ -1,4 +1,4 @@
-package com.radoslav.microclimate.service.pojos;
+package com.radoslav.microclimate.service.beans;
 
 import javax.persistence.EntityManager;
 

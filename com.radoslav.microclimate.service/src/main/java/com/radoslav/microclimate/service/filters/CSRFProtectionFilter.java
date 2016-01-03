@@ -17,10 +17,11 @@ import com.radoslav.microclimate.service.helpers.Constants;
 
 public class CSRFProtectionFilter implements Filter {
 
+  private static final String POST = "POST";
   private static final String CSRF_HEADER = "X-CSRF-TOKEN";
   private static final String CSRF_FETCH_REQUEST = "Fetch";
   private static final String CSRF_TOKEN_ENDPOINT = "/api/v1/csrf/token";
-  private static final String REGISTRATION_ENDPOINT = "/api/v1/user/registration";
+  private static final String REGISTRATION_ENDPOINT = "/api/v1/users";
 
   public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -30,8 +31,9 @@ public class CSRFProtectionFilter implements Filter {
     HttpServletRequest servletRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+    String methodType = servletRequest.getMethod();
     String requestUri = servletRequest.getRequestURI().toString();
-    if (requestUri.equals(REGISTRATION_ENDPOINT) == false) {
+    if (requestUri.equals(REGISTRATION_ENDPOINT) == false || POST.equals(methodType) == false) {
       String xsrfHeader = servletRequest.getHeader(CSRF_HEADER);
 
       if (xsrfHeader == null) {

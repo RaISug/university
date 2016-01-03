@@ -1,20 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>com.radoslav</groupId>
 	<artifactId>microclimate.service</artifactId>
-	
+
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>microclimate.service Maven Webapp</name>
-	
+
 	<url>http://maven.apache.org</url>
-	
+
 	<properties>
 		<cxf.version>2.7.5</cxf.version>
 	</properties>
-	
+
 	<dependencies>
 
 		<dependency>
@@ -70,7 +70,7 @@
 			<artifactId>wsdl4j</artifactId>
 			<version>1.6.3</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -95,8 +95,14 @@
 			<version>8.0.0-RC1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.7.13</version>
+		</dependency>
+
 	</dependencies>
-	
+
 	<build>
 		<finalName>microclimate.service</finalName>
 	</build>

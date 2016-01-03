@@ -32,4 +32,10 @@ public class ValidationUtil {
       throw new BadRequestException("Email field should contain valid email.");
     }
   }
+
+  public static void validateThatParamIsNotEmpty(String param, String paramName) throws BadRequestException {
+    if (param == null) {
+      throw new BadRequestException(paramName + " field can not be empty.");
+    }
+  }
 }

@@ -6,8 +6,8 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import com.radoslav.microclimate.service.beans.ExceptionEntity;
 import com.radoslav.microclimate.service.helpers.Constants;
-import com.radoslav.microclimate.service.pojos.ExceptionEntity;
 
 @Provider
 public class MicroclimateExceptionMapper implements ExceptionMapper<Exception>{

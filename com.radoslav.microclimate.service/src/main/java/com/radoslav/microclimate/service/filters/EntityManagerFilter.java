@@ -10,9 +10,9 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
 
 import com.radoslav.microclimate.service.annotations.EntityManagerBinding;
+import com.radoslav.microclimate.service.beans.EntityManagerContext;
 import com.radoslav.microclimate.service.dbaccessors.DatabaseConnector;
 import com.radoslav.microclimate.service.exceptions.MicroclimateException;
-import com.radoslav.microclimate.service.pojos.EntityManagerContext;
 
 @Provider
 @EntityManagerBinding

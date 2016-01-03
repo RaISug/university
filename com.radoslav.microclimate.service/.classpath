@@ -29,5 +29,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="E:/Programing/jars/slf4j/slf4j-1.7.13/slf4j-api-1.7.13.jar"/>
+	<classpathentry kind="lib" path="E:/Programing/jars/slf4j/slf4j-1.7.13/slf4j-jdk14-1.7.13.jar"/>
+	<classpathentry kind="lib" path="E:/Programing/jars/slf4j/slf4j-1.7.13/slf4j-simple-1.7.13.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
