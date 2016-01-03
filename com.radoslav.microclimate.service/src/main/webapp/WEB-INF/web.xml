@@ -62,6 +62,7 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>JAAS LoginModule</web-resource-name>
+			<url-pattern>/api/v1/*</url-pattern>
 			<url-pattern>/index.html</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>

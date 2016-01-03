@@ -20,9 +20,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="users")
 @NamedQueries({
-  @NamedQuery(name="findAll", query="SELECT u FROM User u"),
-  @NamedQuery(name="findUserByEmailAndPassword", query="SELECT u FROM User u WHERE u.email=:email AND u.password=:password"),
-  @NamedQuery(name="findUserById", query="SELECT u FROM User u WHERE u.id = :id")
+  @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+  @NamedQuery(name="User.findUserByEmailAndPassword", query="SELECT u FROM User u WHERE u.email=:email AND u.password=:password"),
+  @NamedQuery(name="User.findUserById", query="SELECT u FROM User u WHERE u.id = :id")
 })
 public class User implements Serializable {
 
@@ -97,7 +97,7 @@ public class User implements Serializable {
   }
   
   public static User findUserById(EntityManager entityManager, int userId) {
-    Query query = entityManager.createNamedQuery("findUserById")
+    Query query = entityManager.createNamedQuery("User.findUserById")
         .setParameter("id", userId);
     
     return (User) query.getSingleResult();
@@ -105,7 +105,7 @@ public class User implements Serializable {
   
   public static User findUserByEmailAndPassword(EntityManager entityManager, String email, String password) {
     Query query = entityManager
-        .createNamedQuery("findUserByEmailAndPassword")
+        .createNamedQuery("User.findUserByEmailAndPassword")
         .setParameter("email", email)
         .setParameter("password", password);
     

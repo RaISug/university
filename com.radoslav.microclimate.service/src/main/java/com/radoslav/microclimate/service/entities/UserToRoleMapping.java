@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
 @Entity
 @Table(name="users_to_roles_mapping")
 @NamedQueries(
-    @NamedQuery(name="findUserRolesByUserId",
+    @NamedQuery(name="UserToRoleMapping.findUserRolesByUserId",
           query="SELECT r FROM UserToRoleMapping urm"
               + " JOIN Role r ON r.id = urm.role_id"
               + " JOIN User u ON u.id = urm.user_id"
@@ -63,7 +63,7 @@ public class UserToRoleMapping implements Serializable {
   
   public static List<Role> fingUserRolesByUserId(EntityManager entityManager, long userId) {
     TypedQuery<Role> query = entityManager
-                      .createNamedQuery("findUserRolesByUserId", Role.class)
+                      .createNamedQuery("UserToRoleMapping.findUserRolesByUserId", Role.class)
                       .setParameter("userId", userId);
     
     return query.getResultList();
