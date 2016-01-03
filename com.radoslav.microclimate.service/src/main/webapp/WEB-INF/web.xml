@@ -27,7 +27,7 @@
 
 	<filter>
 		<filter-name>CSRFProtectionFilter</filter-name>
-		<filter-class>com.moutain.microclimate.service.filters.CSRFProtectionFilter</filter-class>
+		<filter-class>com.radoslav.microclimate.service.filters.CSRFProtectionFilter</filter-class>
 	</filter>
 
 	<listener>
@@ -42,7 +42,7 @@
 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
 			<param-value>
-				com.moutain.microclimate.service.CXFResourceRegistry
+				com.radoslav.microclimate.service.CXFResourceRegistry
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
