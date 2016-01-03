@@ -25,8 +25,6 @@ public class UserManagementAPI {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Response createUser(@Context EntityManager entityManager, UserBean user) throws Exception {
-    UserPersistenceHelper persistenceHelper = new UserPersistenceHelper(entityManager);
-    
     logger.debug("User registration with the following properties: [{}] will be proccessed.", user);
     
     String email = user.getEmail();
@@ -36,11 +34,12 @@ public class UserManagementAPI {
     
     ValidationUtil.validateEmail(email);
     ValidationUtil.validatePassword(password);
-    ValidationUtil.validateThatParamIsNotEmpty(firstName, "First name");
-    ValidationUtil.validateThatParamIsNotEmpty(lastName, "Last name");
+    ValidationUtil.validateThatParamIsNotEmpty(firstName, "firstName");
+    ValidationUtil.validateThatParamIsNotEmpty(lastName, "lastName");
     
     logger.debug("Start user registration.");
     
+    UserPersistenceHelper persistenceHelper = new UserPersistenceHelper(entityManager);
     persistenceHelper.registerUser(email, password, firstName, lastName);
     
     logger.debug("User was successfully registrated.");

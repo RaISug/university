@@ -112,7 +112,7 @@ public class User implements Serializable {
     return (User) query.getSingleResult();
   }
 
-  public static void persisteEntity(EntityManager entityManager, User user) {
+  public static void persistEntity(EntityManager entityManager, User user) {
     entityManager.persist(user);
   }
   

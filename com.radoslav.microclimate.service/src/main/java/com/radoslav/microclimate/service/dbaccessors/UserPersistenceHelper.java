@@ -50,7 +50,7 @@ public class UserPersistenceHelper {
       
       public void executeQuery() {
         user = createUser(email, password, firstName, lastName);
-        User.persisteEntity(entityManager, user);
+        User.persistEntity(entityManager, user);
       }
       
       public User getResult() {

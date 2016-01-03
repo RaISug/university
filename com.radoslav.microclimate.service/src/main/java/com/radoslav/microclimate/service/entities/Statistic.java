@@ -40,6 +40,19 @@ public class Statistic implements Serializable {
   
   private String type;
 
+  public Statistic() {
+    
+  }
+  
+  public Statistic(float temperature, float rainfall, float humidity, float snowCover, float windSpeed, String type) {
+    this.temperature = temperature;
+    this.rainfall = rainfall;
+    this.humidity = humidity;
+    this.snowCover = snowCover;
+    this.windSpeed = windSpeed;
+    this.type = type;
+  }
+  
   public long getId() {
     return id;
   }
@@ -98,6 +111,10 @@ public class Statistic implements Serializable {
   
   public static List<Statistic> findAll(EntityManager entityManager) {
     return entityManager.createNamedQuery("Statistic.findAll", Statistic.class).getResultList();
+  }
+  
+  public static void persistEntity(EntityManager entityManager, Statistic newEntry) {
+    entityManager.persist(newEntry);
   }
   
 }

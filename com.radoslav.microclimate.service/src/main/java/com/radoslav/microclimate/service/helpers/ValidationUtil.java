@@ -38,4 +38,12 @@ public class ValidationUtil {
       throw new BadRequestException(paramName + " field can not be empty.");
     }
   }
+  
+  public static void validateThatParameterContainsFloatValue(String param, String paramName) throws BadRequestException {
+    try {
+      Float.parseFloat(param);
+    } catch (NumberFormatException exception) {
+      throw new BadRequestException(paramName + " field should contain float value", exception);
+    }
+  }
 }
