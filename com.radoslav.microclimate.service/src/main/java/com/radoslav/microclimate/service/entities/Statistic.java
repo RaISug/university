@@ -11,13 +11,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Query;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="statistics")
-@NamedQueries(
-    @NamedQuery(name="Statistic.findAll", query="SELECT s FROM Statistic s")
-)
+@NamedQueries({
+    @NamedQuery(name="Statistic.findAll", query="SELECT s FROM Statistic s"),
+    @NamedQuery(name="Statistic.updateEntity", query="UPDATE Statistic s SET s.temperature = :temperature AND"
+                    + " s.rainfall = :rainfall AND s.humidity = :humidity AND s.snowCover = :snowCover AND"
+                    + " s.windSpeed = :windSpeed AND s.type = :type WHERE s.id = :id"),
+    @NamedQuery(name="Statistic.deleteEntityById", query="DELETE FROM Statistic s WHERE s.id = :id")
+})
 public class Statistic implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -115,6 +120,31 @@ public class Statistic implements Serializable {
   
   public static void persistEntity(EntityManager entityManager, Statistic newEntry) {
     entityManager.persist(newEntry);
+  }
+
+  public static Statistic findStatisticById(EntityManager entityManager, long id) {
+    return entityManager.find(Statistic.class, id);
+  }
+  
+  public static int updateEntity(EntityManager entityManager, long id, float temperature, float rainfall,
+      float humidity, float snowCover, float windSpeed, String type) {
+    Query query = entityManager
+                    .createNamedQuery("Statistic.updateEntity")
+                    .setParameter(":id", id)
+                    .setParameter(":temperature", temperature)
+                    .setParameter(":rainfall", rainfall)
+                    .setParameter(":humidity", humidity)
+                    .setParameter(":snowCover", snowCover)
+                    .setParameter(":windSpeed", windSpeed)
+                    .setParameter(":type", type);
+    
+    return query.executeUpdate();
+  }
+  
+  public static int deleteEntity(EntityManager entityManager, long id) {
+    Query query = entityManager.createNamedQuery("Statistic.deleteEntityById").setParameter("id", id);
+    
+    return query.executeUpdate();
   }
   
 }

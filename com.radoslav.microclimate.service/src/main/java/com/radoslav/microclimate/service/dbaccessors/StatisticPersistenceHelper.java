@@ -51,4 +51,43 @@ public class StatisticPersistenceHelper {
     
     return new Statistic(temperature, rainfall, humidity, snowCover, windSpeed, type);
   }
+
+  public void updateStatisticData(final StatisticBean statisticBean, final long id) throws Exception {
+    TransactionHandler.handleTransaction(entityManager, new CriticalSection<Integer>() {
+
+      private int updatedRows = 0; 
+      
+      public void executeQuery() {
+        float temperature = Float.parseFloat(statisticBean.getTemperature());
+        float rainfall = Float.parseFloat(statisticBean.getRainfall());
+        float humidity = Float.parseFloat(statisticBean.getHumidity());
+        float snowCover = Float.parseFloat(statisticBean.getSnowCover());
+        float windSpeed = Float.parseFloat(statisticBean.getWindSpeed());
+        String type = statisticBean.getType();
+        
+        updatedRows = Statistic.updateEntity(entityManager, id, temperature, rainfall, humidity, snowCover, windSpeed, type);
+      }
+      
+      public Integer getResult() {
+        return updatedRows;
+      }
+      
+    });
+  }
+
+  public void deleteStatisticData(final long id) throws Exception {
+    TransactionHandler.handleTransaction(entityManager, new CriticalSection<Integer>() {
+
+      private int deletedRows = 0; 
+      
+      public void executeQuery() {
+        deletedRows = Statistic.deleteEntity(entityManager, id);
+      }
+      
+      public Integer getResult() {
+        return deletedRows;
+      }
+      
+    });
+  }
 }

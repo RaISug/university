@@ -3,9 +3,13 @@ package com.radoslav.microclimate.service.rest;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -19,6 +23,7 @@ import com.radoslav.microclimate.service.annotations.EntityManagerBinding;
 import com.radoslav.microclimate.service.beans.StatisticBean;
 import com.radoslav.microclimate.service.dbaccessors.StatisticPersistenceHelper;
 import com.radoslav.microclimate.service.entities.Statistic;
+import com.radoslav.microclimate.service.exceptions.BadRequestException;
 import com.radoslav.microclimate.service.exceptions.InternalServerErrorException;
 import com.radoslav.microclimate.service.helpers.ValidationUtil;
 
@@ -26,11 +31,11 @@ import com.radoslav.microclimate.service.helpers.ValidationUtil;
 @EntityManagerBinding
 public class StatisticManagementAPI {
 
-  Logger logger = LoggerFactory.getLogger(StatisticManagementAPI.class);
+  private static final Logger logger = LoggerFactory.getLogger(StatisticManagementAPI.class);
   
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public List<Statistic> getStatistics(@Context EntityManager entityManager) throws InternalServerErrorException {
+  public List<Statistic> getStatisticData(@Context EntityManager entityManager) throws InternalServerErrorException {
     StatisticPersistenceHelper helper = new StatisticPersistenceHelper(entityManager);
     logger.debug("Trying to retrievw all statistic data.");
     List<Statistic> result = helper.getAll();
@@ -39,9 +44,58 @@ public class StatisticManagementAPI {
   }
   
   @POST
+  @Consumes(MediaType.APPLICATION_JSON)
   public Response addNewStatisticData(@Context EntityManager entityManager, StatisticBean statistic) throws Exception {
-    logger.debug("Statistic information with the following properties: [{}] will be proccessed.", statistic);
+    validateStatisticInputData(statistic);
     
+    logger.debug("Statistic information with the following properties: [{}] will be persisted.", statistic);
+    
+    StatisticPersistenceHelper persistenceHelper = new StatisticPersistenceHelper(entityManager);
+    persistenceHelper.persistStatisticData(statistic);
+    
+    logger.debug("Statistic data was successfully persisted.");
+    
+    return Response.status(Status.CREATED).build();
+  }
+
+  @PUT
+  @Path("/{id}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Response updateStatisticData(@Context EntityManager entityManager, @PathParam("id") long id, StatisticBean statistic) throws Exception {
+    validateStatisticInputData(statistic);
+    
+    if (id <= 0) {
+      throw new BadRequestException("\"id\" path parameter must be specified with numeric value, which is greater than zero.");
+    }
+    
+    logger.debug("Statistic information with the following properties: [{}] will be updated.", statistic);
+    
+    StatisticPersistenceHelper persistenceHelper = new StatisticPersistenceHelper(entityManager);
+    persistenceHelper.updateStatisticData(statistic, id);
+    
+    logger.debug("Statistic data was successfully updated.");
+    
+    return Response.status(Status.NO_CONTENT).build();
+  }
+  
+  @DELETE
+  @Path("/{id}")
+  public Response deleteStatisticData(@Context EntityManager entityManager, @PathParam("id") long id) throws Exception {
+    if (id <= 0) {
+      throw new BadRequestException("\"id\" path parameter must be specified with numeric value, which is greater than zero.");
+    }
+    
+    logger.debug("Statistic information with the following id: [{}] will be deleted.", id);
+    
+    StatisticPersistenceHelper persistenceHelper = new StatisticPersistenceHelper(entityManager);
+    persistenceHelper.deleteStatisticData(id);
+    
+    logger.debug("Statistic data was successfully deleted.");
+    
+    return Response.status(Status.ACCEPTED).build();
+  }
+  
+  private void validateStatisticInputData(StatisticBean statistic) throws BadRequestException {
     String temperature = statistic.getTemperature();
     String rainfall = statistic.getRainfall();
     String humidity = statistic.getHumidity();
@@ -61,13 +115,6 @@ public class StatisticManagementAPI {
     ValidationUtil.validateThatParameterContainsFloatValue(humidity, "humidity");
     ValidationUtil.validateThatParameterContainsFloatValue(snowCover, "snowCover");
     ValidationUtil.validateThatParameterContainsFloatValue(windSpeed, "windSpeed");
-    
-    StatisticPersistenceHelper helper = new StatisticPersistenceHelper(entityManager);
-    helper.persistStatisticData(statistic);
-    
-    logger.debug("Statistic data was successfully persisted.");
-    
-    return Response.status(Status.CREATED).build();
   }
   
 }

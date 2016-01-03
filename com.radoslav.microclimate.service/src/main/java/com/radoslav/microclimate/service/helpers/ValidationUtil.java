@@ -35,7 +35,7 @@ public class ValidationUtil {
 
   public static void validateThatParamIsNotEmpty(String param, String paramName) throws BadRequestException {
     if (param == null) {
-      throw new BadRequestException(paramName + " field can not be empty.");
+      throw new BadRequestException("\"" + paramName + "\" field can not be empty.");
     }
   }
   
@@ -43,7 +43,7 @@ public class ValidationUtil {
     try {
       Float.parseFloat(param);
     } catch (NumberFormatException exception) {
-      throw new BadRequestException(paramName + " field should contain float value", exception);
+      throw new BadRequestException("\"" + paramName + "\" field should contain float value", exception);
     }
   }
 }
