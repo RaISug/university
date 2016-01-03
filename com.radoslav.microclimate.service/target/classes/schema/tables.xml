@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="tables" author="Radoslav">
+	
+		<comment>Creating "users" table</comment>
+		
+		<createTable tableName="users">
+			<column name="id" type="LONG" autoIncrement="true" incrementBy="1" startWith="1">
+				<constraints nullable="false" primaryKey="true" unique="true"/>
+			</column>
+			
+			<column name="firstname" type="VARCHAR(255)" encoding="utf8_unicode_ci">
+				<constraints nullable="false" primaryKey="false" unique="false"/>
+			</column>
+			
+			<column name="lastname" type="VARCHAR(255)" encoding="utf8_unicode_ci">
+				<constraints nullable="false" primaryKey="false" unique="false"/>
+			</column>
+			
+			<column name="password" type="VARCHAR(255)" encoding="utf8_unicode_ci">
+       			<constraints nullable="false" unique="false" primaryKey="false"/>
+       		</column>
+			
+			<column name="email" type="VARCHAR(255)" encoding="utf8_unicode_ci">
+				<constraints nullable="false" primaryKey="false" unique="false"/>
+			</column>
+			
+		</createTable>
+		
+		<comment>"users" table was successfully created</comment>
+		
+		<comment>Creating "roles" table</comment>
+		
+		<createTable tableName="roles">
+			<column name="id" type="LONG" autoIncrement="true" incrementBy="1" startWith="1">
+				<constraints nullable="false" primaryKey="true" unique="true"/>
+			</column>
+			
+			<column name="name" type="VARCHAR(255)" encoding="utf8_unicode_ci">
+				<constraints nullable="false" primaryKey="false" unique="false"/>
+			</column>
+		</createTable>
+		
+		<comment>"roles" table was successfully created</comment>
+		
+		<comment>Creating "users_roles" mapping table</comment>
+		
+		<createTable tableName="users_roles">
+			<column name="user_id" type="LONG">
+				<constraints nullable="false" primaryKey="false"
+							 unique="false" foreignKeyName="fk_user_id"
+							 referencedColumnNames="id" referencedTableName="users" deleteCascade="true"/>
+			</column>
+			
+			<column name="role_id">
+				<constraints nullable="false" primaryKey="false"
+							 unique="false" foreignKeyName="fk_role_id"
+							 referencedColumnNames="id" referencedTableName="roles" deleteCascade="true"/>
+			</column>
+		</createTable>
+		
+		<comment>"users_roles" table was successfully created</comment>
+	
+	</changeSet>
+	
+</databaseChangeLog>
