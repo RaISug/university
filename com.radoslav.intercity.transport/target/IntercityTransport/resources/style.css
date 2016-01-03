@@ -1,0 +1,23 @@
+.navbar {
+	background: #001A33;
+	padding : 15px;
+}
+
+.navbar a {
+	color : #FFFFFF;
+	text-decoration: none;
+	padding-right: 15px;
+}
+
+.navbar a:hover {
+	color : red;
+}
+
+.navbar a.logout {
+	float: right;
+}
+
+.content {
+	margin-left: 25px;
+	margin-right: 25px;
+}
