@@ -20,7 +20,7 @@ public class CSRFProtectionFilter implements Filter {
   private static final String POST = "POST";
   private static final String CSRF_HEADER = "X-CSRF-TOKEN";
   private static final String CSRF_FETCH_REQUEST = "Fetch";
-  private static final String CSRF_TOKEN_ENDPOINT = "/api/v1/csrf/token";
+  private static final String CSRF_TOKEN_ENDPOINT = "/api/v1/csrf";
   private static final String REGISTRATION_ENDPOINT = "/api/v1/users";
 
   public void init(FilterConfig filterConfig) throws ServletException {
