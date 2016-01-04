@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<div align="center">
-		<form method="POST" action="j_security_check">
-			<table>
-				<tr>
-					<td>Потребителско име :</td>
-					<td><input type="text" name="j_username" /></td>
-				</tr>
 
-				<tr>
-					<td>Парола :</td>
-					<td><input type="password" name="j_password" /></td>
-				</tr>
-
-				<tr>
-					<td></td>
-					<td><input type="submit" value="Влез" /></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Login Page</title>
+			
+		<script src="/assets/dependencies/bootstrap/js/bootstrap.min.js"></script>
+		
+		<link rel="stylesheet" href="/assets/dependencies/bootstrap/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="/assets/dependencies/bootstrap/css/bootstrap-theme.min.css"></link>
+        
+	</head>
+	
+	<body>
+		<div align="center">
+			<form method="POST" action="j_security_check">
+				<table>
+					<tr>
+						<td>Потребителско име :</td>
+						<td><input type="text" name="j_username" /></td>
+					</tr>
+	
+					<tr>
+						<td>Парола :</td>
+						<td><input type="password" name="j_password" /></td>
+					</tr>
+	
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Влез" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</body>
 </html>
