@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="addAdministratorData" author="radoslav">
+		<insert tableName="users">
+        	<column name="id" value="1"/>
+        	<column name="firstname" value="Radoslav"/>
+        	<column name="lastname" value="Sugarev"/>
+        	<column name="password" value="123456"/>
+        	<column name="email" value="radoslav1@mail.bg"/>
+    	</insert>
+    	
+    	<insert tableName="roles">
+        	<column name="id" value="1"/>
+        	<column name="name" value="Administrator"/>
+    	</insert>
+    	
+    	<insert tableName="users_to_roles_mapping">
+        	<column name="id" value="1"/>
+        	<column name="user_id" value="1"/>
+        	<column name="role_id" value="1"/>
+    	</insert>
+	</changeSet>
+	
+</databaseChangeLog>

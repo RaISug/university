@@ -6,12 +6,12 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-	<changeSet id="tables" author="Radoslav">
+	<changeSet id="tables" author="radoslav">
 	
 		<comment>Creating "users" table</comment>
 		
 		<createTable tableName="users">
-			<column name="id" type="LONG" autoIncrement="true" incrementBy="1" startWith="1">
+			<column name="id" type="BIGINT" autoIncrement="true" incrementBy="1" startWith="1">
 				<constraints nullable="false" primaryKey="true" unique="true"/>
 			</column>
 			
@@ -38,7 +38,7 @@
 		<comment>Creating "roles" table</comment>
 		
 		<createTable tableName="roles">
-			<column name="id" type="LONG" autoIncrement="true" incrementBy="1" startWith="1">
+			<column name="id" type="BIGINT" autoIncrement="true" incrementBy="1" startWith="1">
 				<constraints nullable="false" primaryKey="true" unique="true"/>
 			</column>
 			
@@ -52,17 +52,17 @@
 		<comment>Creating "users_to_roles_mapping" table</comment>
 		
 		<createTable tableName="users_to_roles_mapping">
-			<column name="id" type="LONG" autoIncrement="true" incrementBy="1" startWith="1">
+			<column name="id" type="BIGINT" autoIncrement="true" incrementBy="1" startWith="1">
 				<constraints nullable="false" primaryKey="true" unique="true"/>
 			</column>
 			
-			<column name="user_id" type="LONG">
+			<column name="user_id" type="BIGINT">
 				<constraints nullable="false" primaryKey="false"
 							 unique="false" foreignKeyName="fk_user_id"
 							 referencedColumnNames="id" referencedTableName="users" deleteCascade="true"/>
 			</column>
 			
-			<column name="role_id">
+			<column name="role_id" type="BIGINT">
 				<constraints nullable="false" primaryKey="false"
 							 unique="false" foreignKeyName="fk_role_id"
 							 referencedColumnNames="id" referencedTableName="roles" deleteCascade="true"/>
@@ -74,7 +74,7 @@
 		<comment>Creating "statistics" table</comment>
 		
 		<createTable tableName="statistics">
-			<column name="id" type="LONG" autoIncrement="true" incrementBy="1" startWith="1">
+			<column name="id" type="BIGINT" autoIncrement="true" incrementBy="1" startWith="1">
 				<constraints nullable="false" primaryKey="true" unique="true"/>
 			</column>
 			

@@ -19,8 +19,6 @@ public class UserPersistenceHelper {
   }
   
   public User getUserByEmailAndPassword(String email, String password) throws MicroclimateException {
-    EntityManager entityManager = null;
-    
     try {
       ValidationUtil.validateEmail(email);
       ValidationUtil.validatePassword(password);

@@ -18,9 +18,9 @@ import javax.persistence.Table;
 @Table(name="statistics")
 @NamedQueries({
     @NamedQuery(name="Statistic.findAll", query="SELECT s FROM Statistic s"),
-    @NamedQuery(name="Statistic.updateEntity", query="UPDATE Statistic s SET s.temperature = :temperature AND"
-                    + " s.rainfall = :rainfall AND s.humidity = :humidity AND s.snowCover = :snowCover AND"
-                    + " s.windSpeed = :windSpeed AND s.type = :type WHERE s.id = :id"),
+    @NamedQuery(name="Statistic.updateEntity", query="UPDATE Statistic s SET s.temperature = :temperature,"
+                    + " s.rainfall = :rainfall, s.humidity = :humidity, s.snowCover = :snowCover,"
+                    + " s.windSpeed = :windSpeed, s.type = :type WHERE s.id = :id"),
     @NamedQuery(name="Statistic.deleteEntityById", query="DELETE FROM Statistic s WHERE s.id = :id")
 })
 public class Statistic implements Serializable {

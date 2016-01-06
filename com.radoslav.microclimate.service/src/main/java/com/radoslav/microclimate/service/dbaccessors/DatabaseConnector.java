@@ -33,10 +33,10 @@ public class DatabaseConnector {
     Context context = null;
     try {
       context =  new InitialContext();
-      DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/Intercity");
+      DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/microclimate");
       Map<String, DataSource> properties = new HashMap<String, DataSource>();
       properties.put("javax.persistence.nonJtaDataSource", dataSource);
-      entityManagerFactory = Persistence.createEntityManagerFactory("IntercityTransport", properties);
+      entityManagerFactory = Persistence.createEntityManagerFactory("microclimate.service", properties);
     } catch(NamingException namingException) {
       throw new InternalServerErrorException("Error while connection to database", namingException);
     } finally {
