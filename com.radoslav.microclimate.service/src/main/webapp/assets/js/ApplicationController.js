@@ -1,5 +1,5 @@
 (function() {
-var application = angular.module("ApplicationController", ["ngRoute"]);
+var application = angular.module("ApplicationController", ["ngRoute", "uiGmapgoogle-maps"]);
 	
 	application.config(function($routeProvider) {
 		$routeProvider
@@ -26,6 +26,13 @@ var application = angular.module("ApplicationController", ["ngRoute"]);
 				templateUrl: "assets/html/info.html"
 			})
 			.otherwise({ redirectTo: "/" });
+	});
+	
+	application.config(function(uiGmapGoogleMapApiProvider) {
+	    uiGmapGoogleMapApiProvider.configure({
+	        v: '3.20',
+	        libraries: 'weather,geometry,visualization'
+	    });
 	});
 	
 })();
