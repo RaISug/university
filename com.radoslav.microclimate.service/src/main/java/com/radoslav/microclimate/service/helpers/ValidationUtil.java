@@ -47,6 +47,8 @@ public class ValidationUtil {
     
     if (statistic.getHumidity() < 0) {
       throw new BadRequestException("\"humidity\" field can't contain negative value.");
+    } else if (statistic.getHumidity() == 0) {
+      throw new BadRequestException("\"humidity\" field can't be empty.");
     }
     
     if (statistic.getSnowCover() < 0) {

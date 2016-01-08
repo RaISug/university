@@ -39,18 +39,7 @@
 	};
 	
 	var onSuccess = function(xhrResponse) {
-		this.title = "Успешен запис";
-		this.text = "Благодаря ви за отделеното време, данните които" +
-						" предоставихте бяха успешно записани. Моля " +
-						"изчакайте докато страницата бъде презаредена";
-		
-		$("#request-execution-result-dialog").modal({
-			backdrop: "static"
-		});
-		
-		setTimeout(function() {
-			location.reload();
-		}, 1500);
+		this.statisticEntries = Array.isArray(xhrResponse.data) ? xhrResponse.data : [xhrResponse.data];
 	};
 	
 	var onError = function(xhrResponse) {
