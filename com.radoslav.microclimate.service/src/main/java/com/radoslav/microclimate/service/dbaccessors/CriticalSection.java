@@ -4,6 +4,6 @@ public interface CriticalSection<T> {
 
   public T getResult();
 
-  public void executeQuery();
+  public void executeQuery() throws Exception;
   
 }

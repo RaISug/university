@@ -19,10 +19,8 @@
 	module.controller("CreateController", ["$scope", "RestUtil", "Destinations", CreateController]);
 	
 	var executeBackendRequest = function(RestUtil, Destinations, oData) {
-		var requestData = prepareRequestData(oData);
-		requestData.url = Destinations.getStatisticCreationEndpoint();
-		
-		RestUtil.POST(requestData, onSuccess, onError);
+		var requestData = prepareRequestData(oData, Destinations);
+		RestUtil.POST(requestData, jQuery.proxy(onSuccess, this), jQuery.proxy(onError, this));
 	};
 	
 	var prepareRequestData = function(oData) {
@@ -40,7 +38,8 @@
 		return {
 			method: "POST",
 			headers: "application/json",
-			data: JSON.stringify(data)
+			data: JSON.stringify(data),
+			url: Destinations.getStatisticCreationEndpoint()
 		};
 	};
 	

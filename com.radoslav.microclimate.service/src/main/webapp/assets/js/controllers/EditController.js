@@ -2,10 +2,14 @@
 
 	var module = angular.module("ApplicationController");
 	
-	var EditController = function($scope) {
+	var EditController = function($scope, $routeParams) {
 		$scope.buttonText = "Редактирай";
 	};
 	
-	module.controller("EditController", ["$scope", EditController]);
+	var loadStatisticEntryById = function($scope, id) {
+		
+	};
+	
+	module.controller("EditController", ["$scope", "$routeParams", EditController]);
 	
 })();

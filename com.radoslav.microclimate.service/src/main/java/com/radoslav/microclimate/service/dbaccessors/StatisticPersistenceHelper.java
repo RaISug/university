@@ -16,11 +16,12 @@ public class StatisticPersistenceHelper {
     this.entityManager = entityManager;
   }
   
-  public List<Statistic> getAll() throws InternalServerErrorException {
+  public List<Statistic> findStatisticData(StatisticBean statisticBean) throws InternalServerErrorException {
     try {
-      return Statistic.findAll(entityManager);
+      return Statistic.find(entityManager, statisticBean);
     } catch (Exception exception) {
-      throw new InternalServerErrorException("Unexpected exception occurred while trying to retrieve all newEntry data.");
+      throw new InternalServerErrorException("Unexpected exception occurred "
+          + "while trying to retrieve data. Additional information: [" + exception.getMessage() + "]");
     }
   }
 
@@ -29,9 +30,13 @@ public class StatisticPersistenceHelper {
 
       private Statistic newEntry = null;
       
-      public void executeQuery() {
-        newEntry = createStatisticInstance(statisticBean);
-        Statistic.persistEntity(entityManager, newEntry);
+      public void executeQuery() throws Exception {
+        try {
+          newEntry = new Statistic(statisticBean);
+          Statistic.persistEntity(entityManager, newEntry);
+        } catch (Exception exception) {
+          throw new InternalServerErrorException("Failed to create statistic entry.");
+        }
       }
       
       public Statistic getResult() {
@@ -41,31 +46,13 @@ public class StatisticPersistenceHelper {
     });
   }
 
-  private Statistic createStatisticInstance(final StatisticBean statisticBean) {
-    float temperature = Float.parseFloat(statisticBean.getTemperature());
-    float rainfall = Float.parseFloat(statisticBean.getRainfall());
-    float humidity = Float.parseFloat(statisticBean.getHumidity());
-    float snowCover = Float.parseFloat(statisticBean.getSnowCover());
-    float windSpeed = Float.parseFloat(statisticBean.getWindSpeed());
-    String type = statisticBean.getType();
-    
-    return new Statistic(temperature, rainfall, humidity, snowCover, windSpeed, type);
-  }
-
   public void updateStatisticData(final StatisticBean statisticBean, final long id) throws Exception {
     TransactionHandler.handleTransaction(entityManager, new CriticalSection<Integer>() {
 
       private int updatedRows = 0; 
       
-      public void executeQuery() {
-        float temperature = Float.parseFloat(statisticBean.getTemperature());
-        float rainfall = Float.parseFloat(statisticBean.getRainfall());
-        float humidity = Float.parseFloat(statisticBean.getHumidity());
-        float snowCover = Float.parseFloat(statisticBean.getSnowCover());
-        float windSpeed = Float.parseFloat(statisticBean.getWindSpeed());
-        String type = statisticBean.getType();
-        
-        updatedRows = Statistic.updateEntity(entityManager, id, temperature, rainfall, humidity, snowCover, windSpeed, type);
+      public void executeQuery() throws Exception {
+        updatedRows = Statistic.updateEntity(entityManager, statisticBean, id);
       }
       
       public Integer getResult() {
@@ -90,4 +77,5 @@ public class StatisticPersistenceHelper {
       
     });
   }
+
 }
