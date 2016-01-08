@@ -5,9 +5,9 @@
            'humidity': humidity,
            'snowCover': snowCover,
            'windSpeed': windSpeed,
-           'latitude': latitude,
-           'longitude': longitude,
-           'date': date
+           'latitude': googleMap.center.latitude,
+           'longitude': googleMap.center.longitude,
+           'date': gatheredDate
       })">
 
 	<div class="col-sm-8" style="align: left">
@@ -71,8 +71,8 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Дата:</label>
 			<div class="col-sm-9">
-				<input type="date" class="form-control" name="date"
-					placeholder="Дата" ng-model="date">
+				<input type="date" class="form-control" name="gatheredDate"
+					placeholder="Дата" ng-model="gatheredDate">
 			</div>
 		</div>
 
@@ -89,3 +89,17 @@
 		<ui-gmap-google-map center='googleMap.center' zoom='googleMap.zoom'></ui-gmap-google-map>
 	</div>
 </form>
+
+<div class="modal fade" id="request-execution-result-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal_label">{{ title }}</h4>
+            </div>
+            <div class="modal-body">
+                <br>{{ text }}<br>
+            </div>
+        </div>
+    </div>
+</div>
