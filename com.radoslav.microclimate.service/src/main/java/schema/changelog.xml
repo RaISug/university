@@ -7,5 +7,6 @@
 
 	<include file="schema/tables.xml"/>
 	<include file="schema/addAdministratorData.xml"/>
+	<include file="schema/addCordinatesAndDateToStatisticsTable.xml"/>
 	
 </databaseChangeLog>

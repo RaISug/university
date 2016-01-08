@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="addCordinatesAndDateToStatisticsTable" author="radoslav">
+		<addColumn tableName="statistics">
+		
+	        <column name="latitude" type="DOUBLE">
+				<constraints nullable="false" primaryKey="false" unique="false"/>
+			</column>
+			
+			<column name="longitude" type="DOUBLE">
+				<constraints nullable="false" primaryKey="false" unique="false"/>
+			</column>
+			
+			<column name="gathered_on" type="date">
+				<constraints nullable="false" primaryKey="false" unique="false"/>
+			</column>
+			
+			<column name="updated_on" type="date">
+				<constraints nullable="false" primaryKey="false" unique="false"/>
+			</column>
+			
+	    </addColumn>
+	</changeSet>
+	
+</databaseChangeLog>

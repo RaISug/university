@@ -1,6 +1,7 @@
 package com.radoslav.microclimate.service.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -45,6 +46,16 @@ public class Statistic implements Serializable {
   
   private String type;
 
+  private double latitude;
+  
+  private double longitude;
+  
+  @Column(name="gathered_on")
+  private Date gatheredOn;
+  
+  @Column(name="updated_on")
+  private Date updatedOn;
+  
   public Statistic() {
     
   }
@@ -114,6 +125,38 @@ public class Statistic implements Serializable {
     this.type = type;
   }
   
+  public double getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(double latitude) {
+    this.latitude = latitude;
+  }
+
+  public double getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(double longitude) {
+    this.longitude = longitude;
+  }
+
+  public Date getGatheredOn() {
+    return gatheredOn;
+  }
+
+  public void setGatheredOn(Date gatheredOn) {
+    this.gatheredOn = gatheredOn;
+  }
+
+  public Date getUpdatedOn() {
+    return updatedOn;
+  }
+
+  public void setUpdatedOn(Date updatedOn) {
+    this.updatedOn = updatedOn;
+  }
+
   public static List<Statistic> findAll(EntityManager entityManager) {
     return entityManager.createNamedQuery("Statistic.findAll", Statistic.class).getResultList();
   }
