@@ -59,7 +59,7 @@ public class ValidationUtil {
       throw new BadRequestException("\"windSpeed\" field can't contain negative value.");
     }
     
-    int type = statistic.getType();
+    int type = statistic.getWeather();
     if (type < 0 && type > 4) {
       throw new BadRequestException("\"type\" field can not contains the provided value.");
     }

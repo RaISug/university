@@ -15,7 +15,7 @@ public class StatisticBean {
   
   private float windSpeed;
   
-  private int type;
+  private int weather;
   
   private double latitude;
   
@@ -43,8 +43,8 @@ public class StatisticBean {
     return windSpeed;
   }
 
-  public int getType() {
-    return type;
+  public int getWeather() {
+    return weather;
   }
 
   public double getLatitude() {

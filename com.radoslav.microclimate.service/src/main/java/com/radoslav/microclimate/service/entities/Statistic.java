@@ -23,7 +23,7 @@ import com.radoslav.microclimate.service.beans.StatisticBean;
     @NamedQuery(name="Statistic.findAll", query="SELECT s FROM Statistic s"),
     @NamedQuery(name="Statistic.updateEntity", query="UPDATE Statistic s SET s.temperature = :temperature,"
                     + " s.rainfall = :rainfall, s.humidity = :humidity, s.snowCover = :snowCover,"
-                    + " s.windSpeed = :windSpeed, s.type = :type, s.latitude = :latitude,"
+                    + " s.windSpeed = :windSpeed, s.weather = :weather, s.latitude = :latitude,"
                     + " s.longitude = :longitude, s.gatheredOn = :date WHERE s.id = :id"),
     @NamedQuery(name="Statistic.deleteEntityById", query="DELETE FROM Statistic s WHERE s.id = :id")
 })
@@ -47,7 +47,7 @@ public class Statistic implements Serializable {
   @Column(name="wind_speed")
   private float windSpeed;
   
-  private int type;
+  private int weather;
 
   private double latitude;
   
@@ -69,7 +69,7 @@ public class Statistic implements Serializable {
     this.humidity = statisticBean.getHumidity();
     this.snowCover = statisticBean.getSnowCover();
     this.windSpeed = statisticBean.getWindSpeed();
-    this.type = statisticBean.getType();
+    this.weather = statisticBean.getWeather();
     this.latitude = statisticBean.getLatitude();
     this.longitude = statisticBean.getLongitude();
     this.gatheredOn = statisticBean.getDate();
@@ -123,12 +123,12 @@ public class Statistic implements Serializable {
     this.windSpeed = windSpeed;
   }
 
-  public int getType() {
-    return type;
+  public int getWeather() {
+    return weather;
   }
 
-  public void setType(int type) {
-    this.type = type;
+  public void setWeather(int weather) {
+    this.weather = weather;
   }
   
   public double getLatitude() {
@@ -187,8 +187,8 @@ public class Statistic implements Serializable {
       query += " AND wind_speed = :windSpeed";
     }
     
-    if (statisticBean.getType() != 0) {
-      query += " AND type = :type";
+    if (statisticBean.getWeather() != 0) {
+      query += " AND weather = :weather";
     }
     
     if (statisticBean.getLatitude() != 0L) {
@@ -210,7 +210,7 @@ public class Statistic implements Serializable {
             .setParameter("humidity", statisticBean.getHumidity())
             .setParameter("snowCover", statisticBean.getSnowCover())
             .setParameter("windSpeed", statisticBean.getWindSpeed())
-            .setParameter("type", statisticBean.getType())
+            .setParameter("weather", statisticBean.getWeather())
             .setParameter("latitude", statisticBean.getLatitude())
             .setParameter("longitude", statisticBean.getLongitude())
             .setParameter("date", statisticBean.getDate())
@@ -234,7 +234,7 @@ public class Statistic implements Serializable {
                     .setParameter("humidity", statisticBean.getHumidity())
                     .setParameter("snowCover", statisticBean.getSnowCover())
                     .setParameter("windSpeed", statisticBean.getWindSpeed())
-                    .setParameter("type", statisticBean.getType())
+                    .setParameter("weather", statisticBean.getWeather())
                     .setParameter("latitude", statisticBean.getLatitude())
                     .setParameter("longitude", statisticBean.getLongitude())
                     .setParameter("date", statisticBean.getDate());
