@@ -30,6 +30,7 @@
 			humidity: oData.humidity,
 			snowCover: oData.snowCover,
 			windSpeed: oData.windSpeed,
+			weather: oData.weather,
 			latitude: oData.latitude,
 			longitude: oData.longitude,
             date: oData.date

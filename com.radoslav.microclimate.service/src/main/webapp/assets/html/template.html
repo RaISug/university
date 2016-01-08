@@ -5,6 +5,7 @@
            'humidity': humidity,
            'snowCover': snowCover,
            'windSpeed': windSpeed,
+           'weather': weather,
            'latitude': googleMap.center.latitude,
            'longitude': googleMap.center.longitude,
            'date': gatheredDate
@@ -49,6 +50,18 @@
 			<div class="col-sm-9">
 				<input type="number" class="form-control" name="windSpeed"
 					placeholder="Скорост в км/ч" ng-model="windSpeed">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Време:</label>
+			<div class="col-sm-9">
+				<select ng-model="weather">
+					<option value="0" selected>Слънчево</option>
+					<option value="1">Облачно</option>
+					<option value="2">Дъждовно</option>
+					<option value="3">Снеговито</option>
+				</select>
 			</div>
 		</div>
 
