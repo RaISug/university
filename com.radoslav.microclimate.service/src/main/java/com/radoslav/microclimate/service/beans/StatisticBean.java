@@ -1,42 +1,62 @@
 package com.radoslav.microclimate.service.beans;
 
+import java.util.Date;
+
 
 public class StatisticBean {
 
-  private String temperature;
+  private float temperature;
   
-  private String rainfall;
+  private float rainfall;
   
-  private String humidity;
+  private float humidity;
   
-  private String snowCover;
+  private float snowCover;
   
-  private String windSpeed;
+  private float windSpeed;
   
-  private String type;
+  private int type;
+  
+  private double latitude;
+  
+  private double longitude;
+  
+  private Date date;
 
-  public String getTemperature() {
+  public float getTemperature() {
     return temperature;
   }
 
-  public String getRainfall() {
+  public float getRainfall() {
     return rainfall;
   }
 
-  public String getHumidity() {
+  public float getHumidity() {
     return humidity;
   }
 
-  public String getSnowCover() {
+  public float getSnowCover() {
     return snowCover;
   }
 
-  public String getWindSpeed() {
+  public float getWindSpeed() {
     return windSpeed;
   }
 
-  public String getType() {
+  public int getType() {
     return type;
   }
 
+  public double getLatitude() {
+    return latitude;
+  }
+
+  public double getLongitude() {
+    return longitude;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+  
 }

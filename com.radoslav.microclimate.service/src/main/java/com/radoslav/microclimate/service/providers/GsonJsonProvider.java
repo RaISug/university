@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -19,19 +22,37 @@ import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.radoslav.microclimate.service.helpers.Constants;
 
 @Provider
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class GsonJsonProvider implements MessageBodyReader<Object>, MessageBodyWriter<Object> {
 
+  private static final Logger logger = LoggerFactory.getLogger(GsonJsonProvider.class);
+  
   private Gson getGson() {
-    return new GsonBuilder().setPrettyPrinting().create();
+    return new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+
+      public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+        try {
+          return jsonElement == null ? null : new SimpleDateFormat(Constants.DATE_FORMAT).parse(jsonElement.getAsString());
+        } catch (ParseException e) {
+          throw new RuntimeException("Failed to parse the json element to java.util.Date type.");
+        }
+        
+      }
+    }).setPrettyPrinting().create();
   }
 
   public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
@@ -61,6 +82,7 @@ public class GsonJsonProvider implements MessageBodyReader<Object>, MessageBodyW
       JsonElement json = new JsonParser().parse(reader);
       return getGson().fromJson(json, genericType);
     } catch (JsonParseException e) {
+      logger.warn("Failed to parse request body. Null value will be returned.");
       return null;
     }
   }

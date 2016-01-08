@@ -3,6 +3,7 @@ package com.radoslav.microclimate.service.helpers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.radoslav.microclimate.service.beans.StatisticBean;
 import com.radoslav.microclimate.service.exceptions.BadRequestException;
 import com.radoslav.microclimate.service.exceptions.MicroclimateException;
 
@@ -39,11 +40,39 @@ public class ValidationUtil {
     }
   }
   
-  public static void validateThatParameterContainsFloatValue(String param, String paramName) throws BadRequestException {
-    try {
-      Float.parseFloat(param);
-    } catch (NumberFormatException exception) {
-      throw new BadRequestException("\"" + paramName + "\" field should contain float value", exception);
+  public static void validateStatisticInputData(StatisticBean statistic) throws BadRequestException {
+    if (statistic.getRainfall() < 0) {
+      throw new BadRequestException("\"rainfall\" field can't contain negative value.");
+    }
+    
+    if (statistic.getHumidity() < 0) {
+      throw new BadRequestException("\"humidity\" field can't contain negative value.");
+    }
+    
+    if (statistic.getSnowCover() < 0) {
+      throw new BadRequestException("\"snowCover\" field can't contain negative value.");
+    }
+    
+    if (statistic.getWindSpeed() < 0) {
+      throw new BadRequestException("\"windSpeed\" field can't contain negative value.");
+    }
+    
+    int type = statistic.getType();
+    if (type < 0 && type > 4) {
+      throw new BadRequestException("\"type\" field can not contains the provided value.");
+    }
+    
+    if (statistic.getLatitude() == 0L) {
+      throw new BadRequestException("\"latitude\" field can't be empty.");
+    }
+    
+    if (statistic.getLongitude() == 0L) {
+      throw new BadRequestException("\"longitude\" field can't be empty.");
+    }
+    
+    if (statistic.getDate() == null) {
+      throw new BadRequestException("\"date\" field can't be empty.");
     }
   }
+
 }

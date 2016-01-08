@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -35,10 +36,12 @@ public class StatisticManagementAPI {
   
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public List<Statistic> getStatisticData(@Context EntityManager entityManager) throws InternalServerErrorException {
-    StatisticPersistenceHelper helper = new StatisticPersistenceHelper(entityManager);
-    logger.debug("Trying to retrievw all statistic data.");
-    List<Statistic> result = helper.getAll();
+  public List<Statistic> getStatisticData(@Context EntityManager entityManager, @QueryParam("") StatisticBean statistic) throws InternalServerErrorException {
+    logger.debug("Trying to retriev searched statistic data.");
+    
+    StatisticPersistenceHelper persistenceHelper = new StatisticPersistenceHelper(entityManager);
+    List<Statistic> result =  persistenceHelper.findStatisticData(statistic);
+    
     logger.debug("Founded statistic data: [{}].", result);
     return result;
   }
@@ -46,7 +49,7 @@ public class StatisticManagementAPI {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Response addNewStatisticData(@Context EntityManager entityManager, StatisticBean statistic) throws Exception {
-    validateStatisticInputData(statistic);
+    ValidationUtil.validateStatisticInputData(statistic);
     
     logger.debug("Statistic information with the following properties: [{}] will be persisted.", statistic);
     
@@ -62,7 +65,7 @@ public class StatisticManagementAPI {
   @Path("/{id}")
   @Consumes(MediaType.APPLICATION_JSON)
   public Response updateStatisticData(@Context EntityManager entityManager, @PathParam("id") long id, StatisticBean statistic) throws Exception {
-    validateStatisticInputData(statistic);
+    ValidationUtil.validateStatisticInputData(statistic);
     
     if (id <= 0) {
       throw new BadRequestException("\"id\" path parameter must be specified with numeric value, which is greater than zero.");
@@ -93,28 +96,6 @@ public class StatisticManagementAPI {
     logger.debug("Statistic data was successfully deleted.");
     
     return Response.status(Status.ACCEPTED).build();
-  }
-  
-  private void validateStatisticInputData(StatisticBean statistic) throws BadRequestException {
-    String temperature = statistic.getTemperature();
-    String rainfall = statistic.getRainfall();
-    String humidity = statistic.getHumidity();
-    String snowCover = statistic.getSnowCover();
-    String windSpeed = statistic.getWindSpeed();
-    String type = statistic.getType();
-    
-    ValidationUtil.validateThatParamIsNotEmpty(temperature, "temperature");
-    ValidationUtil.validateThatParamIsNotEmpty(rainfall, "rainfall");
-    ValidationUtil.validateThatParamIsNotEmpty(humidity, "humidity");
-    ValidationUtil.validateThatParamIsNotEmpty(snowCover, "snowCover");
-    ValidationUtil.validateThatParamIsNotEmpty(windSpeed, "windSpeed");
-    ValidationUtil.validateThatParamIsNotEmpty(type, "type");
-    
-    ValidationUtil.validateThatParameterContainsFloatValue(temperature, "temperature");
-    ValidationUtil.validateThatParameterContainsFloatValue(rainfall, "rainfall");
-    ValidationUtil.validateThatParameterContainsFloatValue(humidity, "humidity");
-    ValidationUtil.validateThatParameterContainsFloatValue(snowCover, "snowCover");
-    ValidationUtil.validateThatParameterContainsFloatValue(windSpeed, "windSpeed");
   }
   
 }
