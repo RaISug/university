@@ -3,8 +3,8 @@
 		var SERVER_URL = "http://localhost:8080/microclimate.service/api/v1/";
 		
 		var STATISTIC_CREATION_ENDPOINT = SERVER_URL + "statistics";
-		var STATISTIC_UPDATE_ENDPOINT = SERVER_URL + "statistics";
-		var STATISTIC_DELETE_ENDPOINT = SERVER_URL + "statistics";
+		var STATISTIC_UPDATE_ENDPOINT = SERVER_URL + "statistics/{id}";
+		var STATISTIC_DELETE_ENDPOINT = SERVER_URL + "statistics/{id}";
 		var GET_STATISTIC_ENTRIES_ENDPOINT = SERVER_URL + "statistics";
 		
 		return {
