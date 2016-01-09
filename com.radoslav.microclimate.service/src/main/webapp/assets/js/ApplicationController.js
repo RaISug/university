@@ -26,10 +26,6 @@ var application = angular.module("ApplicationController", ["ngRoute", "uiGmapgoo
 				templateUrl: "assets/html/delete.html",
 				controller: "DeleteController"
 			})
-			.when("/search", {
-				templateUrl: "assets/html/search.html",
-				controller: "SearchController"
-			})
 			.when("/info", {
 				templateUrl: "assets/html/info.html"
 			})
