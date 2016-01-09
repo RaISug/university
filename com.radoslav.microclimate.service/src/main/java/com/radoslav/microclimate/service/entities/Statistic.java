@@ -1,6 +1,7 @@
 package com.radoslav.microclimate.service.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.radoslav.microclimate.service.beans.StatisticBean;
 
@@ -24,7 +27,8 @@ import com.radoslav.microclimate.service.beans.StatisticBean;
     @NamedQuery(name="Statistic.updateEntity", query="UPDATE Statistic s SET s.temperature = :temperature,"
                     + " s.rainfall = :rainfall, s.humidity = :humidity, s.snowCover = :snowCover,"
                     + " s.windSpeed = :windSpeed, s.weather = :weather, s.latitude = :latitude,"
-                    + " s.longitude = :longitude, s.gatheredOn = :date WHERE s.id = :id"),
+                    + " s.longitude = :longitude, s.gatheredOn = :gatheredOn, s.updatedOn = :updatedOn"
+                    + " WHERE s.id = :id"),
     @NamedQuery(name="Statistic.deleteEntityById", query="DELETE FROM Statistic s WHERE s.id = :id")
 })
 public class Statistic implements Serializable {
@@ -53,9 +57,11 @@ public class Statistic implements Serializable {
   
   private double longitude;
   
+  @Temporal(TemporalType.DATE)
   @Column(name="gathered_on")
   private Date gatheredOn;
   
+  @Temporal(TemporalType.DATE)
   @Column(name="updated_on")
   private Date updatedOn;
   
@@ -73,6 +79,7 @@ public class Statistic implements Serializable {
     this.latitude = statisticBean.getLatitude();
     this.longitude = statisticBean.getLongitude();
     this.gatheredOn = statisticBean.getDate();
+    this.updatedOn = Calendar.getInstance().getTime();
   }
   
   public long getId() {
@@ -204,7 +211,7 @@ public class Statistic implements Serializable {
     }
     
     if (statisticBean.getDate() != null) {
-      query += " AND gathered_on = :date";
+      query += " AND gathered_on = :gatheredOn";
     }
     
     return entityManager
@@ -218,7 +225,7 @@ public class Statistic implements Serializable {
             .setParameter("weather", statisticBean.getWeather())
             .setParameter("latitude", statisticBean.getLatitude())
             .setParameter("longitude", statisticBean.getLongitude())
-            .setParameter("date", statisticBean.getDate())
+            .setParameter("gatheredOn", statisticBean.getDate())
             .getResultList();
   }
   
@@ -242,7 +249,8 @@ public class Statistic implements Serializable {
                     .setParameter("weather", statisticBean.getWeather())
                     .setParameter("latitude", statisticBean.getLatitude())
                     .setParameter("longitude", statisticBean.getLongitude())
-                    .setParameter("date", statisticBean.getDate());
+                    .setParameter("gatheredOn", statisticBean.getDate())
+                    .setParameter("updatedOn", Calendar.getInstance().getTime());
     
     return query.executeUpdate();
   }
