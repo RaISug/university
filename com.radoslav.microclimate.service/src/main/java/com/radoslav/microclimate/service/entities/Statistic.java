@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -256,7 +257,7 @@ public class Statistic implements Serializable {
                     .setParameter("humidity", statisticBean.getHumidity())
                     .setParameter("snowCover", statisticBean.getSnowCover())
                     .setParameter("windSpeed", statisticBean.getWindSpeed())
-                    .setParameter("weather", statisticBean.getWeather())
+                    .setParameter("weather", Weather.fromString(statisticBean.getWeather()))
                     .setParameter("latitude", statisticBean.getLatitude())
                     .setParameter("longitude", statisticBean.getLongitude())
                     .setParameter("gatheredOn", statisticBean.getDate())

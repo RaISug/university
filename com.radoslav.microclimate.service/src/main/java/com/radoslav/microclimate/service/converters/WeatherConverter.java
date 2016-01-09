@@ -11,7 +11,7 @@ public class WeatherConverter implements Converter {
   private static final long serialVersionUID = 1L;
 
   public Object convertObjectValueToDataValue(Object objectValue, Session session) {
-    return null;
+    return ((Weather) objectValue).getWeather();
   }
 
   public Object convertDataValueToObjectValue(Object dataValue, Session session) {

@@ -57,10 +57,10 @@
 			<label class="col-sm-2 control-label">Време:</label>
 			<div class="col-sm-9">
 				<select id="weather" name="weather" class="form-control" ng-model="weather">
-					<option value="sunny" ng-selected="weather == 0" selected>Слънчево</option>
-					<option value="cloudy" ng-selected="weather == 1">Облачно</option>
-					<option value="rainy" ng-selected="weather == 2">Дъждовно</option>
-					<option value="snowy" ng-selected="weather == 3">Снеговито</option>
+					<option value="sunny" selected>Слънчево</option>
+					<option value="cloudy">Облачно</option>
+					<option value="rainy">Дъждовно</option>
+					<option value="snowy">Снеговито</option>
 				</select>
 			</div>
 		</div>
@@ -103,6 +103,11 @@
 	</div>
 </form>
 
+<div style="text-align: center">
+   <h2>{{ notFound }}</h2>
+</div>
+
+
 <div class="modal fade" id="request-execution-result-dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -116,4 +121,3 @@
         </div>
     </div>
 </div>
-<br><br><br>

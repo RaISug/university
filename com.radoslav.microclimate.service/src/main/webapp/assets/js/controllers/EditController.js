@@ -6,6 +6,14 @@
 	
 	var EditController = function($scope, $routeParams, RestUtil, Destinations) {
 		$scope.buttonText = "Редактирай";
+		
+		$scope.googleMap = {
+			center: {
+				
+			},
+			zoom: 6
+		};
+		
 		loadStatisticEntryById($scope, $routeParams.id, RestUtil, Destinations);
 		$scope.executeRequest = jQuery.proxy(executeBackendRequest, $scope, RestUtil, Destinations);
 	};
@@ -36,9 +44,29 @@
 		this.snowCover = xhrResponse.data[0].snowCover;
 		this.windSpeed = xhrResponse.data[0].windSpeed;
 		this.weather = xhrResponse.data[0].weather;
-		this.latitude = xhrResponse.data[0].latitude;
-		this.longitude = xhrResponse.data[0].longitude;
-		this.gatheredDate = xhrResponse.data[0].gatheredOn;
+		this.googleMap.center.latitude = xhrResponse.data[0].latitude;
+		this.googleMap.center.longitude = xhrResponse.data[0].longitude;
+		this.gatheredDate = formatDate(new Date(xhrResponse.data[0].gatheredOn));
+		
+		setWeatherOption(this.weather);
+	};
+	
+	var formatDate = function(date) {
+		return new Date((date.getMonth() + 1) + "." + date.getDate() + "." + date.getFullYear());
+	};
+	
+	var setWeatherOption = function(weather) {
+		setTimeout(function() {
+			if (weather.toLowerCase() === "cloudy") {
+				$("#weather")[0].selectedIndex = 2;
+			} else if (weather.toLowerCase() === "rainy") {
+				$("#weather")[0].selectedIndex = 3;
+			} else if (weather.toLowerCase() === "snowy") {
+				$("#weather")[0].selectedIndex = 4;
+			} else {
+				$("#weather")[0].selectedIndex = 1;
+			}
+		}, 500);
 	};
 	
 	var onErrorOfLoadingEntry = function(xhrResponse) {
@@ -69,7 +97,7 @@
 	};
 	
 	var prepareRequestData = function(oData, Destinations, entryId) {
-		var gatherDate = oData.date.getUTCDate() + "." + (oData.date.getUTCMonth() + 1) + "." + oData.date.getUTCFullYear();
+		var gatherDate = oData.date.getDate() + "." + (oData.date.getMonth() + 1) + "." + oData.date.getFullYear();
 		
 		var data = {
 			temperature: oData.temperature,

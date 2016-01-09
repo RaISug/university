@@ -33,8 +33,10 @@
 				if (key === "date") {
 					var date = oData[key].getUTCDate() + "." + (oData[key].getUTCMonth() + 1) + "." + oData[key].getUTCFullYear();
 					path += "&" + key + "=" + date;
-				} if (key === "weather") {
-					path += "&" + key + "=" + $("#weather")[0].options[$("#weather")[0].selectedIndex].value;
+				} else if (key === "weather") {
+					if (isValidWeatherValue()) {
+						path += "&" + key + "=" + $("#weather")[0].options[$("#weather")[0].selectedIndex].value;
+					}
 				} else {
 					path += "&" + key + "=" + oData[key];
 				}
@@ -47,7 +49,29 @@
 		};
 	};
 	
+	var isValidWeatherValue = function() {
+		var weather = $("#weather")[0].options[$("#weather")[0].selectedIndex].value;
+		if (weather.toLowerCase() === "sunny") {
+			return true;
+		} else if (weather.toLowerCase() === "cloudy") {
+			return true;
+		} else if (weather.toLowerCase() === "rainy") {
+			return true;
+		} else if (weather.toLowerCase() === "snowy") {
+			return true;
+		} else {
+			return false;
+		}
+		
+	};
+	
 	var onSuccess = function(xhrResponse) {
+		if (Array.isArray(xhrResponse.data) && xhrResponse.data.length === 0) {
+			this.title = "Резултат";
+			this.text = "Не успяхме да намерим търсения от вас продукт.";
+			$("#request-execution-result-dialog").modal({ keyboard: true });
+			return;
+		}
 		this.statisticEntries = Array.isArray(xhrResponse.data) ? xhrResponse.data : [xhrResponse.data];
 	};
 	

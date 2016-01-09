@@ -16,7 +16,7 @@ public enum Weather {
   
   public static Weather fromString(String param) {
     for (Weather weather : values()) {
-      if (weather.getWeather().equals(param)) {
+      if (weather.getWeather().equalsIgnoreCase(param)) {
         return weather;
       }
     }
