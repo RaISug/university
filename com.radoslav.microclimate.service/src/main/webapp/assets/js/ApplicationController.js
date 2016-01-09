@@ -1,5 +1,5 @@
 (function() {
-var application = angular.module("ApplicationController", ["ngRoute", "uiGmapgoogle-maps"]);
+var application = angular.module("ApplicationController", ["ngRoute", "ngSanitize", "uiGmapgoogle-maps"]);
 	
 	application.config(function($routeProvider) {
 		$routeProvider

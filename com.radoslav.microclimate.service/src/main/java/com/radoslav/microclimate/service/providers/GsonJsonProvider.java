@@ -50,7 +50,6 @@ public class GsonJsonProvider implements MessageBodyReader<Object>, MessageBodyW
         } catch (ParseException e) {
           throw new RuntimeException("Failed to parse the json element to java.util.Date type.");
         }
-        
       }
     }).setPrettyPrinting().create();
   }

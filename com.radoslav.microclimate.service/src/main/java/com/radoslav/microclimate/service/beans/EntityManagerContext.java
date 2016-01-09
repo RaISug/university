@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 
 public class EntityManagerContext {
 
-  private ThreadLocal<EntityManager> threadLocal = new ThreadLocal<EntityManager>();
+  private static final InheritableThreadLocal<EntityManager> threadLocal = new InheritableThreadLocal<EntityManager>();
 
   public EntityManager getEntityManager() {
     return threadLocal.get();

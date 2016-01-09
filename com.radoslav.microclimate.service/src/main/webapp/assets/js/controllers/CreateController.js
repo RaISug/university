@@ -24,7 +24,9 @@
 		RestUtil.POST(requestData, jQuery.proxy(onSuccess, this), jQuery.proxy(onError, this));
 	};
 	
-	var prepareRequestData = function(oData) {
+	var prepareRequestData = function(oData, Destinations) {
+		var gatherDate = oData.date.getUTCDate() + "." + (oData.date.getUTCMonth() + 1) + "." + oData.date.getUTCFullYear();
+		
 		var data = {
 			temperature: oData.temperature,
 			rainfall: oData.rainfall,
@@ -34,7 +36,7 @@
 			weather: oData.weather,
 			latitude: oData.latitude,
 			longitude: oData.longitude,
-            date: oData.date
+            date: gatherDate
 		};
 		
 		return {
@@ -48,8 +50,8 @@
 	var onSuccess = function(xhrResponse) {
 		this.title = "Успешен запис";
 		this.text = "Благодаря ви за отделеното време, данните които" +
-						" предоставихте бяха успешно записани. Моля " +
-						"изчакайте докато страницата бъде презаредена";
+			" предоставихте бяха успешно записани. Моля " +
+			"изчакайте докато страницата бъде презаредена";
 		
 		$("#request-execution-result-dialog").modal({
 			backdrop: "static"
@@ -63,13 +65,11 @@
 	var onError = function(xhrResponse) {
 		this.title = "Неуспешен запис";
 		this.text = "Данните не бяха успешно записани." +
-						"Статус на грешката: [" + 
-							xhrResponse.status
-						+ "], хвърлена грешка: [" + 
-							xhrResponse.statusText
-						+ "].Информация от сървъра: [" + 
-							(typeof xhrResponse.headers()["X-Request-Result"] === "undefined" ? "Няма информация" : xhrResponse.headers()["X-Request-Result"])
-						+ "]";
+			"Статус на грешката: [" + 
+				xhrResponse.data.statusCode
+			+ "], хвърлена грешка: [" + 
+				xhrResponse.data.exceptionDescription
+			+ "].";
 		
 		$("#request-execution-result-dialog").modal({ keyboard: true });
 	};

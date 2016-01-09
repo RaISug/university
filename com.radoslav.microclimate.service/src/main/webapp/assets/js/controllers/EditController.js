@@ -45,16 +45,19 @@
 		if (xhrResponse.status === HTTP_BAD_REQUEST) {
 			this.errorMessage = "Не успяхме да заредим данните за този продукт, поради грешка възникнала " +
 				"при валидацията на входните данни, моля опитайте пак." +
-				"Статус на грешката: [" + xhrResponse.status + "], хвърлена грешка: [" + xhrResponse.statusText + "]." +
-				"Информация от сървъра: [" + 
-					(typeof xhrResponse.headers()["X-Request-Result"] === "undefined" ? "Няма информация" : xhrResponse.headers()["X-Request-Result"]) + 
-				"]";
+				"Статус на грешката: [" + 
+					xhrResponse.data.statusCode
+				+ "], хвърлена грешка: [" + 
+					xhrResponse.data.exceptionDescription
+				+ "].";
 		} else {
-			this.errorMessage = "Възникна неочаквана грешка при опит за извличане на информация за статистическите данни, моля опитайте пак." +
-				"Статус на грешката: [" + xhrResponse.status + "], хвърлена грешка: [" + xhrResponse.statusText + "]." +
-				"Информация от сървъра: [" + 
-					(typeof xhrResponse.headers()["X-Request-Result"] === "undefined" ? "Няма информация" : xhrResponse.headers()["X-Request-Result"]) + 
-				"]";
+			this.errorMessage = "Възникна неочаквана грешка при опит за извличане на информация за " +
+				"статистическите данни, моля опитайте пак." +
+				"Статус на грешката: [" +
+					xhrResponse.data.statusCode
+				+ "], хвърлена грешка: [" + 
+					xhrResponse.data.exceptionDescription
+				+ "].";
 		}
 	};
 	
@@ -66,6 +69,8 @@
 	};
 	
 	var prepareRequestData = function(oData, Destinations, entryId) {
+		var gatherDate = oData.date.getUTCDate() + "." + (oData.date.getUTCMonth() + 1) + "." + oData.date.getUTCFullYear();
+		
 		var data = {
 			temperature: oData.temperature,
 			rainfall: oData.rainfall,
@@ -75,7 +80,7 @@
 			weather: oData.weather,
 			latitude: oData.latitude,
 			longitude: oData.longitude,
-            date: oData.date
+            date: gatherDate
 		};
 		
 		return {

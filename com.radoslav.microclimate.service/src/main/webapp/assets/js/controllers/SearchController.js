@@ -3,6 +3,7 @@
 	var module = angular.module("ApplicationController");
 	
 	var SearchController = function($scope, $location, RestUtil, Destinations) {
+		$scope.weather = 0;
 		$scope.url = $location.path();
 		$scope.buttonText = "<span class='glyphicon glyphicon-search'></span>";
 		$scope.googleMap = {
@@ -14,10 +15,10 @@
 		};
 		
 		// ==== Define model functions ====
-		$scope.executeRequest = jQuery.proxy(executeBackendRequest, $scope, $location, RestUtil, Destinations);
+		$scope.executeRequest = jQuery.proxy(executeBackendRequest, $scope, RestUtil, Destinations);
 	};
 	
-	module.controller("SearchController", ["$scope", "RestUtil", "Destinations", SearchController]);
+	module.controller("SearchController", ["$scope", "$location", "RestUtil", "Destinations", SearchController]);
 	
 	var executeBackendRequest = function(RestUtil, Destinations, oData) {
 		var requestData = prepareRequestData(oData, Destinations);
@@ -25,11 +26,16 @@
 	};
 	
 	var prepareRequestData = function(oData, Destinations) {
-		var path = "";
+		var path = "1=1";
 		
 		for (key in oData) {
-			if (typeof oData[key] !== "undefined" && oData[key] !== "") {
-				path += key + "=" + oData[key] + "&";
+			if (typeof oData[key] !== "undefined" && oData[key] !== "" && oData[key] !== null) {
+				if (key === "date") {
+					var date = oData[key].getUTCDate() + "." + (oData[key].getUTCMonth() + 1) + "." + oData[key].getUTCFullYear();
+					path += "&" + key + "=" + date;
+				} else {
+					path += "&" + key + "=" + oData[key];
+				}
 			}
 		}
 		
@@ -47,12 +53,10 @@
 		this.title = "Неуспешен запис";
 		this.text = "Данните не бяха успешно записани." +
 						"Статус на грешката: [" + 
-							xhrResponse.status
+							xhrResponse.data.statusCode
 						+ "], хвърлена грешка: [" + 
-							xhrResponse.statusText
-						+ "].Информация от сървъра: [" + 
-							(typeof xhrResponse.headers()["X-Request-Result"] === "undefined" ? "Няма информация" : xhrResponse.headers()["X-Request-Result"])
-						+ "]";
+							xhrResponse.data.exceptionDescription
+						+ "].";
 		
 		$("#request-execution-result-dialog").modal({ keyboard: true });
 	};

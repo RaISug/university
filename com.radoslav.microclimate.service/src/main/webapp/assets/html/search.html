@@ -1,16 +1,16 @@
-<div>
+<div style="margin-bottom: 150px">
 
 	<h3 style='text-align: center;'>Търсене на продукт</h3>
 
     <div ng-include="'assets/html/template.html'"></div>
 
 	<div class="col-sm-3 col-md-2" ng-repeat="entry in statisticEntries">
-		<a href="#{{ url }}/{{ entry.id }}" style="text-decoration: none; min-height: 250px; min-width: 250px; max-height: 250px; max-width: 250px;">
-			<div class="caption">
+		<a href="#{{ url }}/{{ entry.id }}" class="thumbnail" style="text-decoration: none; min-height: 350px; min-width: 300px; max-height: 350px; max-width: 300px;">
+			<div class="caption" align="center">
 				<p class="center-alignment">Температура : {{ entry.temperature }}</p>
-				<p class="center-alignment" ng-hide="entry.rainfall== 0">Валежи : {{ entry.rainfall }}</p>
+				<p class="center-alignment" ng-hide="entry.rainfall == 0">Валежи : {{ entry.rainfall }}</p>
 				<p class="center-alignment">Влажност : {{ entsry.humidity }}</p>
-				<p class="center-alignment" ng-hide="entry.snowCover== 0">Снежна покривка : {{ entry.snowCover }}</p>
+				<p class="center-alignment" ng-hide="entry.snowCover == 0">Снежна покривка : {{ entry.snowCover }}</p>
 				<p class="center-alignment">Време : {{ entry.weather }}</p>
 				<p class="center-alignment">Географска ширина : {{ entry.latitude }}</p>
 				<p class="center-alignment">Географска дължина : {{ entry.longitude }}</p>
@@ -19,5 +19,5 @@
 			</div>
 		</a>
 	</div>
-
 </div>
+
