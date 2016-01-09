@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class StatisticBean {
 
+  private long id;
+  
   private float temperature;
   
   private float rainfall;
@@ -23,6 +25,10 @@ public class StatisticBean {
   
   private Date date;
 
+  public long getId() {
+    return id;
+  }
+  
   public float getTemperature() {
     return temperature;
   }

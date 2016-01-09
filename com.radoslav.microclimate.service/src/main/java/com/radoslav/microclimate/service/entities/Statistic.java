@@ -167,6 +167,10 @@ public class Statistic implements Serializable {
   public static List<Statistic> find(EntityManager entityManager, StatisticBean statisticBean) throws Exception {
     String query = "SELECT * FROM statistics WHERE 1 = 1";
     
+    if (statisticBean.getId() != 0L) {
+      query += " AND id = :id";
+    }
+    
     if (statisticBean.getTemperature() != 0f) {
       query += " AND temperature = :temperature";
     }
@@ -205,6 +209,7 @@ public class Statistic implements Serializable {
     
     return entityManager
             .createNativeQuery(query, Statistic.class)
+            .setParameter("id", statisticBean.getId())
             .setParameter("temperature", statisticBean.getTemperature())
             .setParameter("rainfall", statisticBean.getRainfall())
             .setParameter("humidity", statisticBean.getHumidity())

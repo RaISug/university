@@ -21,7 +21,7 @@
 	
 	var executeBackendRequest = function(RestUtil, Destinations, oData) {
 		var requestData = prepareRequestData(oData, Destinations);
-		RestUtil.POST(requestData, jQuery.proxy(onSuccess, this), jQuery.proxy(onError, this));
+		RestUtil.GET(requestData, jQuery.proxy(onSuccess, this), jQuery.proxy(onError, this));
 	};
 	
 	var prepareRequestData = function(oData, Destinations) {
