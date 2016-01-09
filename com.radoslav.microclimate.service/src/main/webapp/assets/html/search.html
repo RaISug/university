@@ -4,8 +4,8 @@
 
     <div ng-include="'assets/html/template.html'"></div>
 
-	<div class="col-sm-3 col-md-2" ng-repeat="entry in statisticEntries">
-		<a href="#{{ url }}/{{ entry.id }}" class="thumbnail" style="text-decoration: none; min-height: 350px; min-width: 300px; max-height: 350px; max-width: 300px; margin-right: 50px;">
+	<div class="col-sm-4" ng-repeat="entry in statisticEntries">
+		<a href="#{{ url }}/{{ entry.id }}" class="thumbnail" style="text-decoration: none; min-height: 350px; min-width: 300px; max-height: 350px; max-width: 300px; margin-right: 100px;">
 			<div class="caption" align="center">
 				<p class="center-alignment">Температура : {{ entry.temperature }}</p>
 				<p class="center-alignment" ng-hide="entry.rainfall == 0">Валежи : {{ entry.rainfall }}</p>
