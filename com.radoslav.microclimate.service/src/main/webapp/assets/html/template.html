@@ -56,8 +56,8 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Време:</label>
 			<div class="col-sm-9">
-				<select class="form-control" ng-model="weather">
-					<option value="sunny" ng-selected="weather == 0">Слънчево</option>
+				<select id="weather" name="weather" class="form-control" ng-model="weather">
+					<option value="sunny" ng-selected="weather == 0" selected>Слънчево</option>
 					<option value="cloudy" ng-selected="weather == 1">Облачно</option>
 					<option value="rainy" ng-selected="weather == 2">Дъждовно</option>
 					<option value="snowy" ng-selected="weather == 3">Снеговито</option>

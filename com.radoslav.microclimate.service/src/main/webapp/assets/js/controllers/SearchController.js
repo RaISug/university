@@ -33,6 +33,8 @@
 				if (key === "date") {
 					var date = oData[key].getUTCDate() + "." + (oData[key].getUTCMonth() + 1) + "." + oData[key].getUTCFullYear();
 					path += "&" + key + "=" + date;
+				} if (key === "weather") {
+					path += "&" + key + "=" + $("#weather")[0].options[$("#weather")[0].selectedIndex].value;
 				} else {
 					path += "&" + key + "=" + oData[key];
 				}
@@ -50,8 +52,8 @@
 	};
 	
 	var onError = function(xhrResponse) {
-		this.title = "Неуспешен запис";
-		this.text = "Данните не бяха успешно записани." +
+		this.title = "Неуспешно намерен запис";
+		this.text = "Данните не бяха намерени поради възникнала грешка, моля да ни извините." +
 						"Статус на грешката: [" + 
 							xhrResponse.data.statusCode
 						+ "], хвърлена грешка: [" + 

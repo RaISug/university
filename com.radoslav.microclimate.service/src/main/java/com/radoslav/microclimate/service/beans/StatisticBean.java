@@ -64,5 +64,45 @@ public class StatisticBean {
   public Date getDate() {
     return date;
   }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public void setTemperature(float temperature) {
+    this.temperature = temperature;
+  }
+
+  public void setRainfall(float rainfall) {
+    this.rainfall = rainfall;
+  }
+
+  public void setHumidity(float humidity) {
+    this.humidity = humidity;
+  }
+
+  public void setSnowCover(float snowCover) {
+    this.snowCover = snowCover;
+  }
+
+  public void setWindSpeed(float windSpeed) {
+    this.windSpeed = windSpeed;
+  }
+
+  public void setWeather(String weather) {
+    this.weather = weather;
+  }
+
+  public void setLatitude(double latitude) {
+    this.latitude = latitude;
+  }
+
+  public void setLongitude(double longitude) {
+    this.longitude = longitude;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
   
 }
