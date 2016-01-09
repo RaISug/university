@@ -11,10 +11,18 @@ var application = angular.module("ApplicationController", ["ngRoute", "uiGmapgoo
 				controller: "CreateController"
 			})
 			.when("/edit", {
+				templateUrl: "assets/html/search.html",
+				controller: "SearchController"
+			})
+			.when("/edit/:id", {
 				templateUrl: "assets/html/edit.html",
 				controller: "EditController"
 			})
 			.when("/delete", {
+				templateUrl: "assets/html/search.html",
+				controller: "SearchController"
+			})
+			.when("/delete/:id", {
 				templateUrl: "assets/html/delete.html",
 				controller: "DeleteController"
 			})

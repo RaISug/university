@@ -57,10 +57,10 @@
 			<label class="col-sm-2 control-label">Време:</label>
 			<div class="col-sm-9">
 				<select ng-model="weather">
-					<option value="0" selected>Слънчево</option>
-					<option value="1">Облачно</option>
-					<option value="2">Дъждовно</option>
-					<option value="3">Снеговито</option>
+					<option value="0" ng-selected="weather == 0">Слънчево</option>
+					<option value="1" ng-selected="weather == 1">Облачно</option>
+					<option value="2" ng-selected="weather == 2">Дъждовно</option>
+					<option value="3" ng-selected="weather == 3">Снеговито</option>
 				</select>
 			</div>
 		</div>

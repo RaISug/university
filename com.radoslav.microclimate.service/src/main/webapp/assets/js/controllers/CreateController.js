@@ -3,6 +3,7 @@
 	var module = angular.module("ApplicationController");
 	
 	var CreateController = function($scope, RestUtil, Destinations) {
+		$scope.weather = 0;
 		$scope.buttonText = "Добави";
 		$scope.googleMap = {
 			center: {

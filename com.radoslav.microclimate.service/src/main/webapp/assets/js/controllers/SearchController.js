@@ -2,7 +2,8 @@
 
 	var module = angular.module("ApplicationController");
 	
-	var SearchController = function($scope, RestUtil, Destinations) {
+	var SearchController = function($scope, $location, RestUtil, Destinations) {
+		$scope.url = $location.path();
 		$scope.buttonText = "<span class='glyphicon glyphicon-search'></span>";
 		$scope.googleMap = {
 			center: {
@@ -13,7 +14,7 @@
 		};
 		
 		// ==== Define model functions ====
-		$scope.executeRequest = jQuery.proxy(executeBackendRequest, $scope, RestUtil, Destinations);
+		$scope.executeRequest = jQuery.proxy(executeBackendRequest, $scope, $location, RestUtil, Destinations);
 	};
 	
 	module.controller("SearchController", ["$scope", "RestUtil", "Destinations", SearchController]);
