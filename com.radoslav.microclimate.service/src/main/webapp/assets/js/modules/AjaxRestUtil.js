@@ -77,4 +77,10 @@
 	
 	var module = angular.module("ApplicationController");
 	module.factory("AjaxRestUtil", [AjaxRestUtil]);
+	
+	module.run(function() {
+		$.ajaxSetup({
+			"X-XSRF-TOKEN": X_XSRF_TOKEN
+		});
+	});
 })();

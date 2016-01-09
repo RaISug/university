@@ -69,4 +69,20 @@
 
 	var module = angular.module("ApplicationController");
 	module.factory("RestUtil", ["$http", RestUtil]);
+	
+	module.run(function($http) {
+		if (typeof $http.defaults.headers.get === "undefined") {
+			$http.defaults.headers.get = {};
+		}
+		if (typeof $http.defaults.headers.put === "undefined") {
+			$http.defaults.headers.put = {};
+		}
+		if (typeof $http.defaults.headers.post === "undefined") {
+			$http.defaults.headers.post = {};
+		}
+		
+		$http.defaults.headers.get['X-XSRF-TOKEN'] = X_XSRF_TOKEN;
+		$http.defaults.headers.put['X-XSRF-TOKEN'] = X_XSRF_TOKEN;
+		$http.defaults.headers.post['X-XSRF-TOKEN'] = X_XSRF_TOKEN;
+	});
 })();

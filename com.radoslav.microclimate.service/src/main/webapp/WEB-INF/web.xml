@@ -29,6 +29,11 @@
 		<filter-name>CSRFProtectionFilter</filter-name>
 		<filter-class>com.radoslav.microclimate.service.filters.CSRFProtectionFilter</filter-class>
 	</filter>
+	
+	<filter-mapping>
+		<filter-name>CSRFProtectionFilter</filter-name>
+		<url-pattern>/api/v1/*</url-pattern>
+	</filter-mapping>
 
 	<listener>
 		<listener-class>liquibase.integration.servlet.LiquibaseServletListener</listener-class>
@@ -81,5 +86,5 @@
 	<security-role>
 		<role-name>Administrator</role-name>
 	</security-role>
-
+	
 </web-app>

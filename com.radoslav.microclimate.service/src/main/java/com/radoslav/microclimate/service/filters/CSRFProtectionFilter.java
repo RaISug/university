@@ -17,11 +17,12 @@ import com.radoslav.microclimate.service.helpers.Constants;
 
 public class CSRFProtectionFilter implements Filter {
 
+
   private static final String POST = "POST";
-  private static final String CSRF_HEADER = "X-CSRF-TOKEN";
   private static final String CSRF_FETCH_REQUEST = "Fetch";
-  private static final String CSRF_TOKEN_ENDPOINT = "/api/v1/csrf";
-  private static final String REGISTRATION_ENDPOINT = "/api/v1/users";
+  private static final String CONTEXT_PATH = "/microclimate.service";
+  private static final String CSRF_TOKEN_ENDPOINT = CONTEXT_PATH + "/api/v1/csrf";
+  private static final String REGISTRATION_ENDPOINT = CONTEXT_PATH + "/api/v1/users";
 
   public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -33,37 +34,42 @@ public class CSRFProtectionFilter implements Filter {
 
     String methodType = servletRequest.getMethod();
     String requestUri = servletRequest.getRequestURI().toString();
-    if (requestUri.equals(REGISTRATION_ENDPOINT) == false || POST.equals(methodType) == false) {
-      String xsrfHeader = servletRequest.getHeader(CSRF_HEADER);
+    
+    if (requestUri.equals(REGISTRATION_ENDPOINT) && POST.equals(methodType)) {
+      filterChain.doFilter(request, response);
+      return;
+    }
+    
+    String xsrfHeader = servletRequest.getHeader(Constants.X_XSRF_HEADER);
 
-      if (xsrfHeader == null) {
-        sendErrorMessage(httpResponse, "Missing xsrf token.", HttpURLConnection.HTTP_UNAUTHORIZED);
+    if (xsrfHeader == null) {
+      sendErrorMessage(httpResponse, "Missing xsrf token.", HttpURLConnection.HTTP_UNAUTHORIZED);
+      return;
+    }
+
+    if (xsrfHeader.equals(CSRF_FETCH_REQUEST) == false) {
+      HttpSession session = servletRequest.getSession(false);
+
+      if (session == null) {
+        sendErrorMessage(httpResponse, "Please log on to proceed with request.", HttpURLConnection.HTTP_FORBIDDEN);
         return;
       }
 
-      if (xsrfHeader.equals(CSRF_FETCH_REQUEST) == false) {
-        HttpSession session = servletRequest.getSession(false);
+      String xsrfToken = (String) session.getAttribute(Constants.X_XSRF_HEADER);
 
-        if (session == null) {
-          sendErrorMessage(httpResponse, "Please log on to proceed with request.", HttpURLConnection.HTTP_FORBIDDEN);
-          return;
-        }
+      if (xsrfToken == null || xsrfToken.equals(xsrfHeader) == false) {
+        sendErrorMessage(httpResponse, "Wrong xsrf token.", HttpURLConnection.HTTP_UNAUTHORIZED);
+        return;
+      }
+    } else {
+      String uri = servletRequest.getRequestURI().toString();
 
-        String xsrfToken = (String) session.getAttribute(CSRF_HEADER);
-
-        if (xsrfToken == null || xsrfToken.equals(xsrfHeader) == false) {
-          sendErrorMessage(httpResponse, "Wrong xsrf token.", HttpURLConnection.HTTP_UNAUTHORIZED);
-          return;
-        }
-      } else {
-        String uri = servletRequest.getRequestURI().toString();
-
-        if (uri.equals(CSRF_TOKEN_ENDPOINT) == false) {
-          sendErrorMessage(httpResponse, "Wrong XSRF token endpoint", HttpURLConnection.HTTP_BAD_REQUEST);
-          return;
-        }
+      if (uri.equals(CSRF_TOKEN_ENDPOINT) == false) {
+        sendErrorMessage(httpResponse, "Wrong XSRF token endpoint", HttpURLConnection.HTTP_BAD_REQUEST);
+        return;
       }
     }
+    
     filterChain.doFilter(request, response);
   }
 
