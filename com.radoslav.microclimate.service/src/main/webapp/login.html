@@ -13,24 +13,21 @@
 	</head>
 	
 	<body>
-		<div align="center">
-			<form method="POST" action="j_security_check">
-				<table>
-					<tr>
-						<td>Потребителско име :</td>
-						<td><input type="text" name="j_username" /></td>
-					</tr>
+		<div align="center"><h1>Вход</h1></div>
+		<div class="col-sm-8 col-sm-offset-2">
+			<form class="form-horizontal" method="POST" action="j_security_check">
+				<div class="form-group">
+					<label class="form-label">Потребителско име :</label>
+					<input type="text" name="j_username" class="form-control" />
+				</div>
 	
-					<tr>
-						<td>Парола :</td>
-						<td><input type="password" name="j_password" /></td>
-					</tr>
-	
-					<tr>
-						<td></td>
-						<td><input type="submit" value="Влез" /></td>
-					</tr>
-				</table>
+				<div class="form-group">
+					<label class="form-label">Парола :</label>
+					<input type="password" name="j_password" class="form-control" />
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="submit" value="Влез" />
+				</div>
 			</form>
 		</div>
 	</body>
