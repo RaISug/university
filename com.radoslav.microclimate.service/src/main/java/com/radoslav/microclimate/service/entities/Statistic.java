@@ -51,7 +51,7 @@ public class Statistic implements Serializable {
   @Column(name="wind_speed")
   private float windSpeed;
   
-  private int weather;
+  private String weather;
 
   private double latitude;
   
@@ -130,11 +130,11 @@ public class Statistic implements Serializable {
     this.windSpeed = windSpeed;
   }
 
-  public int getWeather() {
+  public String getWeather() {
     return weather;
   }
 
-  public void setWeather(int weather) {
+  public void setWeather(String weather) {
     this.weather = weather;
   }
   
@@ -198,7 +198,7 @@ public class Statistic implements Serializable {
       query += " AND wind_speed = :windSpeed";
     }
     
-    if (statisticBean.getWeather() != 0) {
+    if (statisticBean.getWeather() != null) {
       query += " AND weather = :weather";
     }
     
