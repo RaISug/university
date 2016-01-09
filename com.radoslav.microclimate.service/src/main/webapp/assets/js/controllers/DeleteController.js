@@ -3,7 +3,7 @@
 	var module = angular.module("ApplicationController");
 	
 	var DeleteController = function($scope, $routeParams, RestUtil, Destinations) {
-		$scope.executeRequest = jQuery.proxy(executeBackendRequest, $scope, $routeParams, RESTUtil, DestinationUtil);
+		$scope.executeRequest = jQuery.proxy(executeBackendRequest, $scope, $routeParams, RestUtil, Destinations);
 	};
 	
 	module.controller("DeleteController", ["$scope", "$routeParams", "RestUtil", "Destinations", DeleteController]);
@@ -14,7 +14,7 @@
 	};
 	
 	var prepareRequestData = function($routeParams, Destinations) {
-		var entryId = routeParams.id;
+		var entryId = $routeParams.id;
 		
 		return {
 			method : "DELETE",
