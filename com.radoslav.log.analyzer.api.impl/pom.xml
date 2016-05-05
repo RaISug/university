@@ -10,6 +10,22 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<manifestLocation>META-INF</manifestLocation>
+					<instructions>
+						<Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>com.radoslav.log.analyzer.api.impl</Bundle-Name>
+						<Bundle-Description>Log analyzer</Bundle-Description>
+						<Bundle-Vendor>Log Analyzer</Bundle-Vendor>
+						<Bundle-Version>1.0.0</Bundle-Version>
+						<Import-Package>org.osgi.framework</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
@@ -22,6 +38,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>5.4.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.radoslav</groupId>
 			<artifactId>com.radoslav.log.analyzer.api</artifactId>

@@ -1,5 +1,6 @@
 package com.radoslav.log.retrievers;
 
+import com.radoslav.log.analyzer.util.Lookup;
 import com.radoslav.log.entry.builders.LogEntryBuilder;
 import com.radoslav.log.entry.builder.retrievers.LogEntryBuilderRetriever;
 import com.radoslav.log.parser.retrievers.LogParserRetriever;
@@ -14,22 +15,22 @@ public class OsgiRetriever  implements LogEntryBuilderRetriever,
 
   @Override
   public LogEntryBuilder retrieveLogEntryBuilder() {
-    return null;
+    return Lookup.theFirstServiceWithOsgiByClassName(LogEntryBuilder.class);
   }
 
   @Override
   public LogParser retrieveLogParser() {
-    return null;
+    return Lookup.theFirstServiceWithOsgiByClassName(LogParser.class);
   }
 
   @Override
   public StatisticProvider retrieveStatisticProvider() {
-    return null;
+    return Lookup.theFirstServiceWithOsgiByClassName(StatisticProvider.class);
   }
 
   @Override
   public DatabaseProvider retrieveDatabaseProvider() {
-    return null;
+    return Lookup.theFirstServiceWithOsgiByClassName(DatabaseProvider.class);
   }
 
 }
