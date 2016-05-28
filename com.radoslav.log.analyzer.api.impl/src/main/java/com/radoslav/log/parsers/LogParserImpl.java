@@ -80,9 +80,9 @@ public class LogParserImpl implements LogParser {
   
   private void addPreviousEntriesToEntry(List<LogEntry> logEntries, LogEntry logEntry) {
     int entriesLength = logEntries.size();
-    int loopStartIndex = entriesLength <= 15 ? 0 : entriesLength;
+    int loopStartIndex = entriesLength <= 15 ? 0 : (entriesLength - 15);
     
-    for (int i = loopStartIndex ; i < entriesLength ; i--) {
+    for (int i = loopStartIndex ; i < entriesLength ; i++) {
       LogEntry entry = logEntries.get(i);
       if (entry.getSeverity() == LogSeverity.ERROR) {
         logEntry.setPreviousLogEntries(new ArrayList<LogEntry>());
