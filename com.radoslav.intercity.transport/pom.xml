@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.radoslav</groupId>
-	<artifactId>IntercityTransport</artifactId>
+	<artifactId>com.radoslav.intercity.transport</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>IntercityTransport Maven Webapp</name>
@@ -108,6 +108,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>IntercityTransport</finalName>
+		<finalName>com.radoslav.intercity.transport</finalName>
 	</build>
 </project>
