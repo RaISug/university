@@ -11,12 +11,18 @@ public class Configuration {
     List<ConfigurationProvider> cfgProviders = Lookup.allInstancesWithSpiByClass(ConfigurationProvider.class);
     
     for (ConfigurationProvider cfgProvider : cfgProviders) {
-      String value = cfgProvider.getPropertyValue(key);
-      if (value != null) {
-        return value;
+      String propertyValue = cfgProvider.getProperty(key);
+      if (propertyValue != null) {
+        return propertyValue;
       }
     }
     
-    return new ConfigurationProviderImpl().getPropertyValue(key);
+    return new ConfigurationProviderImpl().getProperty(key);
   }
+
+  public static String getCfgValueByKey(String key, String defaultValue) {
+    String propertyValue = Configuration.getCfgValueByKey(key);
+    return propertyValue == null ? defaultValue : propertyValue;
+  }
+  
 }

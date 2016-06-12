@@ -16,6 +16,8 @@ import org.osgi.framework.ServiceReference;
 public class Lookup {
 
   public static Object withJndiByName(String name) {
+    if (name == null) return null;
+    
     try {
       InitialContext context = new InitialContext();
       return context.lookup(name);
@@ -25,6 +27,8 @@ public class Lookup {
   }
   
   public static <T> T theFirstInstanceWithSpiByClass(Class<T> clazz) {
+    if (clazz == null) return null;
+    
     ServiceLoader<T> loader = ServiceLoader.load(clazz);
     
     Iterator<T> iterator = loader.iterator();
@@ -36,6 +40,8 @@ public class Lookup {
   }
   
   public static <T> List<T> allInstancesWithSpiByClass(Class<T> clazz) {
+    if (clazz == null) return null;
+    
     ServiceLoader<T> loader = ServiceLoader.load(clazz);
     
     Iterator<T> iterator = loader.iterator();
@@ -53,6 +59,8 @@ public class Lookup {
 
   @SuppressWarnings("unchecked")
   public static <T> T theFirstServiceWithOsgiByClassName(Class<T> clazz) {
+    if (clazz == null) return null;
+    
     BundleContext bundleContext = FrameworkUtil.getBundle(Lookup.class).getBundleContext();
     ServiceReference<?> reference = bundleContext.getServiceReference(clazz.getName());
     if (reference == null) {
@@ -64,6 +72,8 @@ public class Lookup {
   
   @SuppressWarnings("unchecked")
   public static <T> List<T> allServicesWithOsgiByClassName(Class<T> clazz) {
+    if (clazz == null) return null;
+    
     List<T> services = new ArrayList<>();
     
     try {

@@ -1,5 +1,6 @@
 package com.radoslav.log.retrievers;
 
+import com.radoslav.log.analyzer.constants.CfgConstants;
 import com.radoslav.log.analyzer.util.Configuration;
 import com.radoslav.log.analyzer.util.Lookup;
 import com.radoslav.log.entry.builders.LogEntryBuilder;
@@ -16,22 +17,22 @@ public class JndiRetriever  implements LogEntryBuilderRetriever,
 
   @Override
   public LogEntryBuilder retrieveLogEntryBuilder() {
-    return (LogEntryBuilder) Lookup.withJndiByName(Configuration.getCfgValueByKey("com.radoslav.log.entry.builder.name"));
+    return (LogEntryBuilder) Lookup.withJndiByName(Configuration.getCfgValueByKey(CfgConstants.JNDI_NAME_OF_LOG_ENTRY_BUILDER));
   }
 
   @Override
   public LogParser retrieveLogParser() {
-    return (LogParser) Lookup.withJndiByName(Configuration.getCfgValueByKey("com.radoslav.log.entry.parser.name"));
+    return (LogParser) Lookup.withJndiByName(Configuration.getCfgValueByKey(CfgConstants.JNDI_NAME_OF_LOG_ENTRY_PARSER));
   }
 
   @Override
   public StatisticProvider retrieveStatisticProvider() {
-    return (StatisticProvider) Lookup.withJndiByName(Configuration.getCfgValueByKey("com.radoslav.statistic.provider.name"));
+    return (StatisticProvider) Lookup.withJndiByName(Configuration.getCfgValueByKey(CfgConstants.JNDI_NAME_OF_STATISTICS_PROVIDER));
   }
 
   @Override
   public DatabaseProvider retrieveDatabaseProvider() {
-    return (DatabaseProvider) Lookup.withJndiByName(Configuration.getCfgValueByKey("com.radoslav.database.provider.name"));
+    return (DatabaseProvider) Lookup.withJndiByName(Configuration.getCfgValueByKey(CfgConstants.JNDI_NAME_OF_DATABASE_PROVIDER));
   }
   
 }

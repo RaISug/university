@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.radoslav.log.analyzer.constants.CfgConstants;
+import com.radoslav.log.analyzer.util.Configuration;
 import com.radoslav.log.data.LogSeverity;
 import com.radoslav.log.entries.LogEntry;
 import com.radoslav.log.entry.builder.retrievers.LogBuilderRetrieverImpl;
@@ -36,7 +38,7 @@ public class LogParserImpl implements LogParser {
     this.logEntryBuilder = logEntryBuilder;
     this.databaseProvider = databaseProvider;
     this.statisticProvider = statisticProvider;
-    this.logEntryDelimiter  = System.getProperty("line.separator", "\n");
+    this.logEntryDelimiter  = Configuration.getCfgValueByKey(CfgConstants.LOG_ENTRIES_DELIMITER, CfgConstants.DEFAULT_LOG_ENTRIES_DELIMITER);
   }
   
   @Override
@@ -61,6 +63,9 @@ public class LogParserImpl implements LogParser {
         
         logEntries.add(logEntry);
       }
+      
+      passEntryToDatabaseProvider(null);
+      passEntryToStatisticProvider(null);
     } catch (Exception exception) {
       return new ArrayList<>();
     }
@@ -94,7 +99,7 @@ public class LogParserImpl implements LogParser {
 
   private void passEntryToDatabaseProvider(LogEntry logEntry) {
     try {
-      databaseProvider.processLogEntry((LogEntry) logEntry.clone());
+      databaseProvider.processLogEntry(logEntry == null ? null : (LogEntry) logEntry.clone());
     } catch (CloneNotSupportedException e) {
       //skip
     }
@@ -102,7 +107,7 @@ public class LogParserImpl implements LogParser {
   
   private void passEntryToStatisticProvider(LogEntry logEntry) {
     try {
-      statisticProvider.processLogEntry((LogEntry) logEntry.clone());
+      statisticProvider.processLogEntry(logEntry == null ? null : (LogEntry) logEntry.clone());
     } catch (CloneNotSupportedException e) {
       //skip
     }

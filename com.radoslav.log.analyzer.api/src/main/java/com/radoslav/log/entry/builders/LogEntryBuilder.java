@@ -7,8 +7,8 @@ public interface LogEntryBuilder {
   
   public LogEntry buildLogEntry(String logRow);
   
-  public String getLogPropertiesDelimiter();
+  public String getLogKeysDelimiter();
 
-  public void setLogPropertiesDelimiter(String delimiter);
+  public void setLogKeysDelimiter(String delimiter);
 
 }
