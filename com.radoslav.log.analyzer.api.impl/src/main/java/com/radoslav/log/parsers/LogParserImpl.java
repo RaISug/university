@@ -91,9 +91,9 @@ public class LogParserImpl implements LogParser {
       LogEntry entry = logEntries.get(i);
       if (entry.getSeverity() == LogSeverity.ERROR) {
         logEntry.setPreviousLogEntries(new ArrayList<LogEntry>());
+      } else {
+        logEntry.addPreviousLogEntry(entry);
       }
-      
-      logEntry.addPreviousLogEntry(entry);
     }
   }
 

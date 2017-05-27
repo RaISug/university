@@ -119,12 +119,16 @@ public class LogAnalyzer {
     Iterator<LogEntry> iterator = logEntries.iterator();
     while (iterator.hasNext()){
       LogEntry logEntry = iterator.next();
-      if (logEntry.getMessage().contains(logMessage)) {
+      if (logEntry.getMessage().contains(logMessage) == false) {
         iterator.remove();
       }
     }
     
     return logEntries;
+  }
+  
+  public List<LogEntry> retrieveAllLogEntries() {
+    return logParser.parse(inputStream);
   }
   
   public OutputStream generateFileWithAnalysis(OutputStream outputStream) {

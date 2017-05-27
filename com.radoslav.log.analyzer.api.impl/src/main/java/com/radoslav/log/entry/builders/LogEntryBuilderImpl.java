@@ -45,7 +45,7 @@ public class LogEntryBuilderImpl implements LogEntryBuilder {
     for (int i = 0 ; i < logKeyValues.length ; i++) {
       if (logKeys[i].equalsIgnoreCase("datetime")) {
         try {
-          logEntry.setDate(new SimpleDateFormat("yyyy:mm:dd").parse(logKeyValues[i]));
+          logEntry.setDate(new SimpleDateFormat("yyyy:MM:dd-HH:mm:ss").parse(logKeyValues[i]));
         } catch (ParseException e) {
           throw new RuntimeException("Unable to parse datetime value in the log entry");
         }
@@ -78,7 +78,7 @@ public class LogEntryBuilderImpl implements LogEntryBuilder {
     LogEntry logEntry = new LogEntryImpl();
 
     try {
-      logEntry.setDate(new SimpleDateFormat("yyyy:mm:dd").parse(date));
+      logEntry.setDate(new SimpleDateFormat("yyyy:MM:dd-HH:mm:ss").parse(date));
     } catch (ParseException e) {
       throw new RuntimeException("Not supported date format.");
     }

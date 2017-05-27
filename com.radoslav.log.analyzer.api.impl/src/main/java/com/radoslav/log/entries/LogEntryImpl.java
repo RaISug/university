@@ -94,11 +94,11 @@ public class LogEntryImpl implements LogEntry {
     StringBuilder builder = new StringBuilder();
     
     builder.append("LogEntry: [");
-    builder.append("date").append("=").append(logDate);
-    builder.append("message").append("=").append(logMessage);
-    builder.append("severity").append("=").append(logSeverity);
-    builder.append("additionalProperties").append("=").append(additionalLogProperties);
-    builder.append("previousLogs").append("=").append(previousLogEntries);
+    builder.append("\tdate").append("=").append(logDate);
+    builder.append("\tmessage").append("=").append(logMessage);
+    builder.append("\tseverity").append("=").append(logSeverity);
+    builder.append("\tadditionalProperties").append("=").append(additionalLogProperties);
+    builder.append("\tpreviousLogs").append("=").append(previousLogEntries);
     builder.append("]");
     
     return builder.toString();
