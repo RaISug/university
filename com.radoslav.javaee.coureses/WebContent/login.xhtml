@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough" 	
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<script src="assets/dependencies/bootstrap/js/bootstrap.min.js"></script>
+		
+		<link rel="stylesheet" href="assets/dependencies/bootstrap/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="assets/dependencies/bootstrap/css/bootstrap-theme.min.css"></link>
+	</h:head>
+
+	<h:body>
+		<f:event listener="#{login.checkForActiveSession}" type="preRenderView" />
+		<div style="text-align: center; margin-top: 50px;"><h1>Добре дошли, за да използвате приложението, моля въведете вашето име</h1></div>
+		<div class="col-sm-offset-4" style="margin-top: 100px; width: 380px; height: 130px; padding: 20px; border-radius: 5px; box-shadow: 5px 5px 55px #888888;">
+			<h:form class="form-horizontal col-sm-12">
+				<div class="form-group">
+					<h:inputText class="form-control" value="#{login.userName}" a:placeholder="Въведете вашето име" />
+				</div>
+				<div class="form-group">
+					<p:commandButton class="col-sm-offset-5 btn btn-default" value="Вход" action="#{login.login}" ajax='false'/>
+				</div>
+			</h:form>
+		</div>
+	</h:body>
+</html>

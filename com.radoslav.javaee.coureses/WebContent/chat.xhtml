@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" 	
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<script src="assets/dependencies/bootstrap/js/bootstrap.min.js"></script>
+		
+		<link rel="stylesheet" href="assets/dependencies/bootstrap/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="assets/dependencies/bootstrap/css/bootstrap-theme.min.css"></link>
+        
+		<style>
+			html {
+			  	height: 100%;
+			}
+
+			body {
+			  	min-height: 100%;
+			}
+			
+			.content {
+				margin-left: 150px;
+			}
+			
+			.conversation {
+				font-size: 19px;
+				min-width: 50%; 
+				max-width: 50%; 
+				min-height: 350px;
+				max-height: 350px;
+				border: 1px solid #b1bec6; 
+				border-radius: 5px;
+				margin-bottom: 15px;
+				margin-top: 15px;
+				box-shadow: 10px 10px 45px #888888;
+				padding: 15px;
+				overflow-y: scroll;
+			}
+			
+			.senderMessage {
+				min-width: 75%; 
+				float: right; 
+				background-color: #58dff4; 
+				text-align: right; 
+				color: white;
+				border-radius: 5px;
+				padding: 5px;
+			}
+			
+			.recipientMessage {
+				min-width: 75%; 
+				background-color: #a8f4aa; 
+				color: black;
+				border-radius: 5px;
+				text-align: left; 
+				float: left;
+				padding: 5px;
+			}
+			
+		</style>
+	</h:head>
+	<h:body>
+		
+		<f:event listener="#{login.checkForActiveSession}" type="preRenderView" />
+	
+		<nav class="navbar navbar-default">
+		   <div class="container-fluid">
+		      <div class="navbar-header">
+		         <a class="navbar-brand" href="index.xhtml">J2EE Project</a>
+		      </div>
+		      <div class="collapse navbar-collapse">
+		         <ul class="nav navbar-nav" style="float: right">
+		            <li>
+		                <a href="userlist.xhtml" ng-click="">Списък с потребители</a>
+		            </li>
+		            <li>
+		                <a href="photo.xhtml" ng-click="">Направи си снимка</a>
+		            </li>
+		            <li>
+		                <a href="imagelist.xhtml" ng-click="">Списък със снимки</a>
+		            </li>
+		            <li>
+		                <a href="logout.xhtml" ng-click="">Изход</a>
+		            </li>
+		         </ul>
+		      </div>
+		   </div>
+		</nav>
+
+		<div class="col-sm-offset-4">
+			<h3><h:outputText value="Разговор с: #{param['userName']}" /></h3>
+			<h:form>
+				<p:commandLink ajax="false" action="#{chat.constructImageListUrl}">
+					<f:param name="userName" value="#{param['userName']}" />
+					<h:outputText value="виж неговите снимки тук" />
+				</p:commandLink>
+			</h:form>
+	
+			<div id="conversation-messages" class="conversation">
+				<h:outputText id="response_messages" value="#{chat.responseMessage}" escape="false" />
+			</div>
+			
+			<div style="">
+				<h:form id="messages">
+					<p:inputTextarea id="text_area" value="#{chat.newMessage}" style="min-width: 50%; box-shadow: 10px 10px 45px #888888;" />
+					<br />
+					<h:commandButton id="send-message-button" class="col-sm-offset-2 btn btn-default" value="Изпрати съобщението" > 
+						<f:param name="userName" value="#{param['userName']}" />
+					    <f:ajax event="click" listener="#{chat.sendMessage}" execute="@form"/>
+					</h:commandButton>
+				</h:form>
+			
+				<h:form>
+					<input id="userName" name="userName" value="" style="display: none"/>
+			    	<p:poll interval="1" listener="#{chat.retrieveMessages}" update="response_messages" />
+				</h:form>
+			</div>
+		
+		</div>
+		<script>
+			(function() {
+				
+				function getUserNameParameter() {
+				    var url = window.location.href;
+				    
+				    var equalSignIndex = url.indexOf("=");
+				   	
+				    return url.substring(equalSignIndex + 1);
+				}
+
+				var element = document.getElementById("userName");
+				element.value = getUserNameParameter();
+				
+				setInterval(function() {
+					var element = document.getElementById("conversation-messages");
+					element.scrollTop = element.scrollHeight;
+				}, 50);
+
+				var textArea = document.getElementById("messages:text_area");
+
+				var sendMessageButton = document.getElementById("messages:send-message-button");
+				sendMessageButton.addEventListener("click", function() {
+					textArea.value = "";
+				});
+				
+				document.onkeypress = function(event) {
+					if (event.which == 13 || event.keyCode == 13) {
+						sendMessageButton.click();
+						textArea.value = "";
+				    }
+				};
+			})()
+		</script>
+	</h:body>
+</html>
