@@ -1,0 +1,68 @@
+.conversation {
+    width: 500px;
+    min-height: 350px;
+    max-height: 350px;
+    border: 1px solid #b1bec6;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-left: 30%;
+    box-shadow: 10px 10px 45px #888888;
+    padding: 15px;
+    overflow-y: scroll;
+}
+
+.senderMessage {
+    min-width: 75%;
+    max-width: 75%;
+    float: right;
+    background-color: #58dff4;
+    text-align: right;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+}
+
+.recipientMessage {
+    min-width: 75%;
+    max-width: 75%;
+    background-color: #a8f4aa;
+    color: black;
+    border-radius: 5px;
+    text-align: left;
+    float: left;
+    padding: 5px;
+    margin: 10px;
+}
+
+.messageArea {
+    width: 532px;
+    height: 45px;
+    padding: 15px;
+    margin-left: 30%;
+    border: 0px;
+    margin-bottom: 15px;
+    box-shadow: 10px 10px 45px #888888;
+}
+
+.messageButton {
+    width: 532px;
+    height: 35px;
+    font-size: 15px;
+    margin-left: 30%;
+    color: white;
+    border: 0px;
+    outline: none;
+    background-color: #bf0000;
+    border-radius: 5px 5px 5px 5px;
+	cursor: pointer;
+}
+
+.messageButton:hover {
+    background-color: #f92020;
+}
+
+.userName {
+
+}
