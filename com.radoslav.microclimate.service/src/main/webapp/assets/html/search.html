@@ -1,0 +1,23 @@
+<div style="margin-bottom: 150px">
+
+	<h3 style='text-align: center;'>Търсене на продукт</h3>
+
+    <div ng-include="'assets/html/template.html'"></div>
+
+	<div class="col-sm-4" ng-repeat="entry in statisticEntries">
+		<a href="#{{ url }}/{{ entry.id }}" class="thumbnail" style="text-decoration: none; min-height: 350px; min-width: 300px; max-height: 350px; max-width: 300px; margin-right: 100px;">
+			<div class="caption" align="center">
+				<p class="center-alignment">Температура : {{ entry.temperature }}</p>
+				<p class="center-alignment" ng-hide="entry.rainfall == 0">Валежи : {{ entry.rainfall }}</p>
+				<p class="center-alignment">Влажност : {{ entry.humidity }}</p>
+				<p class="center-alignment" ng-hide="entry.snowCover == 0">Снежна покривка : {{ entry.snowCover }}</p>
+				<p class="center-alignment">Време : {{ entry.weather }}</p>
+				<p class="center-alignment">Географска ширина : {{ entry.latitude }}</p>
+				<p class="center-alignment">Географска дължина : {{ entry.longitude }}</p>
+				<p class="center-alignment">Дата на запис : {{ entry.gatheredOn }}</p>
+				<p class="center-alignment">Последна промяна : {{ entry.updatedOn }}</p>
+			</div>
+		</a>
+	</div>
+</div>
+

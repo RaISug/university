@@ -1,0 +1,123 @@
+<form class="form-horizontal"
+	ng-submit="executeRequest({
+           'temperature': temperature,
+           'rainfall': rainfall,
+           'humidity': humidity,
+           'snowCover': snowCover,
+           'windSpeed': windSpeed,
+           'weather': weather,
+           'latitude': googleMap.center.latitude,
+           'longitude': googleMap.center.longitude,
+           'date': gatheredDate
+      })">
+
+	<div class="col-sm-8" style="align: left">
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Температура:</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="temperature"
+					placeholder="Температура" ng-model="temperature">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Валежи:</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="rainfall" ng-disabled="snowCover > 0"
+					min="0" placeholder="Валежи в кв. сантиметри" ng-model="rainfall">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Влажност:</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="humidity"
+					min="0" placeholder="Влажност в г/куб.м" ng-model="humidity">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Снежна покривка:</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="snowCover" ng-disabled="rainfall > 0"
+					min="0" placeholder="Снежна покривка в сантиметри" ng-model="snowCover">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Скорост на вятъра:</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="windSpeed"
+					min="0" placeholder="Скорост в км/ч" ng-model="windSpeed">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Време:</label>
+			<div class="col-sm-9">
+				<select id="weather" name="weather" class="form-control" ng-model="weather">
+					<option value="sunny" selected>Слънчево</option>
+					<option value="cloudy">Облачно</option>
+					<option value="rainy">Дъждовно</option>
+					<option value="snowy">Снеговито</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Latitude:</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="date"
+					placeholder="Географска ширина" ng-model="googleMap.center.latitude">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Longitude:</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="date"
+					placeholder="Географска дължина" ng-model="googleMap.center.longitude">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Дата:</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control" name="gatheredDate"
+					placeholder="Дата" ng-model="gatheredDate">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-5 col-sm-2">
+				<button type="submit" class="btn btn-default"
+					style='min-width: 200px;' ng-bind-html="buttonText"></button>
+			</div>
+		</div>
+
+	</div>
+	
+	<div class="col-sm-4" style="align: right; margin-bottom: 150px;">
+		<ui-gmap-google-map center='googleMap.center' zoom='googleMap.zoom'></ui-gmap-google-map>
+	</div>
+</form>
+
+<div style="text-align: center">
+   <h2>{{ notFound }}</h2>
+</div>
+
+
+<div class="modal fade" id="request-execution-result-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal_label">{{ title }}</h4>
+            </div>
+            <div class="modal-body">
+                <br>{{ text }}<br>
+            </div>
+        </div>
+    </div>
+</div>

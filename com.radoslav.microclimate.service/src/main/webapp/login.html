@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Login Page</title>
+			
+		<script src="assets/dependencies/bootstrap/js/bootstrap.min.js"></script>
+		
+		<link rel="stylesheet" href="assets/dependencies/bootstrap/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="assets/dependencies/bootstrap/css/bootstrap-theme.min.css"></link>
+        
+	</head>
+	
+	<body>
+		<div align="center"><h1>Вход</h1></div>
+		<div class="col-sm-8 col-sm-offset-2">
+			<form class="form-horizontal" method="POST" action="j_security_check">
+				<div class="form-group">
+					<label class="form-label">Потребителско име :</label>
+					<input type="text" name="j_username" class="form-control" />
+				</div>
+	
+				<div class="form-group">
+					<label class="form-label">Парола :</label>
+					<input type="password" name="j_password" class="form-control" />
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="submit" value="Влез" />
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

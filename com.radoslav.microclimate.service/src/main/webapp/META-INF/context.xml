@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Realm className="org.apache.catalina.realm.JAASRealm" 
+		appName="FORMLoginModule"
+		userClassNames="com.radoslav.microclimate.service.principals.UserPrincipal" 
+		roleClassNames="com.radoslav.microclimate.service.principals.RolePrincipal" />
+</Context>
